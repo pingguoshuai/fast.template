@@ -63,6 +63,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.Http
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.HttpApi.Client", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.HttpApi.Client\Fast.Template.IdsAdmin.HttpApi.Client.csproj", "{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.Start.Web.Vue", "src\Fast.Template.Start.Web.Vue\Fast.Template.Start.Web.Vue.csproj", "{20C898E1-793A-4A15-BEC5-1C7DED80E432}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20C898E1-793A-4A15-BEC5-1C7DED80E432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C898E1-793A-4A15-BEC5-1C7DED80E432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C898E1-793A-4A15-BEC5-1C7DED80E432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C898E1-793A-4A15-BEC5-1C7DED80E432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -201,6 +207,7 @@ Global
 		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
 		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
 		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{20C898E1-793A-4A15-BEC5-1C7DED80E432} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
