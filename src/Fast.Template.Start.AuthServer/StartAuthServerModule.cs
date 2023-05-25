@@ -2,8 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using Localization.Resources.AbpUi;
-using Medallion.Threading;
-using Medallion.Threading.Redis;
+//using Medallion.Threading;
+//using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
@@ -40,7 +40,7 @@ namespace Fast.Template.Start;
 [DependsOn(
     typeof(AbpAutofacModule),
     typeof(AbpCachingStackExchangeRedisModule),
-    typeof(AbpDistributedLockingModule),
+    //typeof(AbpDistributedLockingModule),
     typeof(AbpAccountWebIdentityServerModule),
     typeof(AbpAccountApplicationModule),
     typeof(AbpAccountHttpApiModule),
@@ -129,12 +129,12 @@ public class StartAuthServerModule : AbpModule
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "Start-Protection-Keys");
         }
 
-        context.Services.AddSingleton<IDistributedLockProvider>(sp =>
-        {
-            var connection = ConnectionMultiplexer
-                .Connect(configuration["Redis:Configuration"]);
-            return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
-        });
+        //context.Services.AddSingleton<IDistributedLockProvider>(sp =>
+        //{
+        //    var connection = ConnectionMultiplexer
+        //        .Connect(configuration["Redis:Configuration"]);
+        //    return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
+        //});
 
         context.Services.AddCors(options =>
         {

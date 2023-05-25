@@ -140,21 +140,21 @@ public class IdentityServerDataSeedContributor : IDataSeedContributor, ITransien
                 "Template"
             };
 
-        var configurationSection = _configuration.GetSection("IdentityServer:Clients");
+        var configurationSection = _configuration.GetSection("IdentityServer:Applications");
 
 
         //Web Client
-        var webClientId = configurationSection["Template_Web:ClientId"];
+        var webClientId = configurationSection["Start_Web:ClientId"];
         if (!webClientId.IsNullOrWhiteSpace())
         {
-            var webClientRootUrl = configurationSection["Template_Web:RootUrl"].EnsureEndsWith('/');
+            var webClientRootUrl = configurationSection["Start_Web:RootUrl"].EnsureEndsWith('/');
 
             await CreateClientAsync(
                 name: webClientId,
                 clientUri: webClientRootUrl,
                 scopes: commonScopes,
                 grantTypes: new[] { "hybrid" },
-                secret: (configurationSection["Template_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                secret: (configurationSection["Start_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
                 redirectUri: $"{webClientRootUrl}signin-oidc",
                 postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc",
                 frontChannelLogoutUri: $"{webClientRootUrl}Account/FrontChannelLogout",
@@ -164,17 +164,17 @@ public class IdentityServerDataSeedContributor : IDataSeedContributor, ITransien
 
 
         //Console Test / Angular Client
-        var consoleAndAngularClientId = configurationSection["Template_App:ClientId"];
+        var consoleAndAngularClientId = configurationSection["Start_App:ClientId"];
         if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
         {
-            var webClientRootUrl = configurationSection["Template_App:RootUrl"]?.TrimEnd('/');
+            var webClientRootUrl = configurationSection["Start_App:RootUrl"]?.TrimEnd('/');
 
             await CreateClientAsync(
                 name: consoleAndAngularClientId,
                 clientUri: webClientRootUrl,
                 scopes: commonScopes,
                 grantTypes: new[] { "password", "client_credentials", "authorization_code" },
-                secret: (configurationSection["Template_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                secret: (configurationSection["Start_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
                 requireClientSecret: false,
                 redirectUri: webClientRootUrl,
                 postLogoutRedirectUri: webClientRootUrl,
@@ -185,17 +185,17 @@ public class IdentityServerDataSeedContributor : IDataSeedContributor, ITransien
 
 
         // Swagger Client
-        var swaggerClientId = configurationSection["Template_Swagger:ClientId"];
+        var swaggerClientId = configurationSection["Start_Swagger:ClientId"];
         if (!swaggerClientId.IsNullOrWhiteSpace())
         {
-            var swaggerRootUrl = configurationSection["Template_Swagger:RootUrl"].TrimEnd('/');
+            var swaggerRootUrl = configurationSection["Start_Swagger:RootUrl"].TrimEnd('/');
 
             await CreateClientAsync(
                 name: swaggerClientId,
                 clientUri: swaggerRootUrl,
                 scopes: commonScopes,
                 grantTypes: new[] { "authorization_code" },
-                secret: configurationSection["Template_Swagger:ClientSecret"]?.Sha256(),
+                secret: configurationSection["Start_Swagger:ClientSecret"]?.Sha256(),
                 requireClientSecret: false,
                 redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
                 corsOrigins: new[] { swaggerRootUrl.RemovePostFix("/") }
