@@ -12,6 +12,7 @@ using Volo.Abp.IdentityServer.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Fast.Template.IdsAdmin.EntityFrameworkCore;
 
 namespace Fast.Template.Start.EntityFrameworkCore;
 
@@ -25,7 +26,8 @@ namespace Fast.Template.Start.EntityFrameworkCore;
     typeof(AbpBackgroundJobsEntityFrameworkCoreModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
-    typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+    typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+    typeof(IdsAdminEntityFrameworkCoreModule)
     )]
 public class StartEntityFrameworkCoreModule : AbpModule
 {

@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "Fast.Template.IdsAdmin": {
+      "path": "Fast.Template.IdsAdmin.abpmdl.json"
+    }
+  }
+}

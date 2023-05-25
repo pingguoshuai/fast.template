@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using Fast.Template.IdsAdmin;
 using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Fast.Template.Start.EntityFrameworkCore;
 using Fast.Template.Start.MultiTenancy;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
@@ -26,9 +30,9 @@ using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.Reflection;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
-
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -93,6 +97,10 @@ public class StartHttpApiHostModule : AbpModule
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             options.ConventionalControllers.Create(typeof(StartApplicationModule).Assembly);
+            options.ConventionalControllers.Create(typeof(IdsAdminApplicationModule).Assembly, ops =>
+            {
+                ops.RootPath = "IdsAdmin";
+            });
         });
     }
 
@@ -118,8 +126,50 @@ public class StartHttpApiHostModule : AbpModule
             options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Start API", Version = "v1" });
-                options.DocInclusionPredicate((docName, description) => true);
+
+                var moduleContainer = context.Services.GetRequiredService<IModuleContainer>();
+                var groups = moduleContainer.Modules.Where(m => m.Type.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
+                var names = groups.Select(g => g.Assembly.GetName().Name).ToList();
+                if (groups.Any())
+                {
+                    foreach (var item in groups)
+                    {
+                        //item.Assembly.GetName().Name;
+                        options.SwaggerDoc(item.Assembly.GetName().Name, new OpenApiInfo { Title = item.Type.GetCustomAttribute<DescriptionAttribute>()?.Description, Version = "v1" });
+                    }
+                }
+
+                //options.DocInclusionPredicate((docName, description) => true);
+                options.DocInclusionPredicate((docName, description) =>
+                {
+                    var groupName = docName;
+                    var assemblyName = ((ControllerActionDescriptor)description.ActionDescriptor).ControllerTypeInfo.Assembly.GetName().Name;
+                    if (groupName == "v1" && !names.Contains(assemblyName))
+                    {
+                        return true;
+                    }
+
+                    if (groupName == assemblyName) return true;
+                    return false;
+                });
                 options.CustomSchemaIds(type => type.FullName);
+
+                #region 注释：反射扫描xml文件
+
+                var assemblyFinder = context.Services.GetRequiredService<IAssemblyFinder>();
+
+                var assemblies = assemblyFinder.Assemblies.ToList();
+                foreach (var assembly in assemblies)
+                {
+                    string xmlFileName = assembly.GetName().Name + ".xml"; // 获取 XML 文件名
+                    string xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFileName);
+                    if (File.Exists(xmlFilePath))
+                    {
+                        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName), true);
+                    }
+                }
+
+                #endregion
             });
     }
 
@@ -195,11 +245,21 @@ public class StartHttpApiHostModule : AbpModule
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Start API");
+            var moduleContainer = app.ApplicationServices.GetRequiredService<IModuleContainer>();
+            var groups = moduleContainer.Modules.Where(m => m.Type.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Template API");
+            if (groups.Any())
+            {
+                foreach (var item in groups)
+                {
+                    options.SwaggerEndpoint($"/swagger/{item.Assembly.GetName().Name}/swagger.json", item.Type.GetCustomAttribute<DescriptionAttribute>()?.Description);
+                }
+            }
 
             var configuration = context.GetConfiguration();
             options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
-            options.OAuthScopes("Start");
+            options.OAuthClientSecret(configuration["AuthServer:SwaggerClientSecret"]);
+            options.OAuthScopes("Template");
         });
 
         app.UseAuditing();

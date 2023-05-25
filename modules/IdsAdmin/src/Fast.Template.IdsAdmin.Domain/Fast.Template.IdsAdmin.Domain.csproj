@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Fast.Template.IdsAdmin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.2.2" />
+    <PackageReference Include="Volo.Abp.IdentityServer.Domain" Version="7.2.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.IdentityServer" Version="7.2.2" />
+    <ProjectReference Include="..\Fast.Template.IdsAdmin.Domain.Shared\Fast.Template.IdsAdmin.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

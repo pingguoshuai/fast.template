@@ -29,4 +29,8 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.Domain.Shared\Fast.Template.IdsAdmin.Domain.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

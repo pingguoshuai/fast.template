@@ -1,4 +1,5 @@
-﻿using Fast.Template.Start.Localization;
+﻿using Fast.Template.IdsAdmin;
+using Fast.Template.Start.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -12,7 +13,6 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
-
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -23,8 +23,9 @@ namespace Fast.Template.Start;
     typeof(AbpIdentityServerDomainSharedModule),
     typeof(AbpPermissionManagementDomainSharedModule),
     typeof(AbpSettingManagementDomainSharedModule),
-    typeof(AbpTenantManagementDomainSharedModule)
-    )]
+    typeof(AbpTenantManagementDomainSharedModule),
+    typeof(IdsAdminDomainSharedModule)
+        )]
 public class StartDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

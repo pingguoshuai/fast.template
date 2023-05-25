@@ -1,4 +1,5 @@
-﻿using Localization.Resources.AbpUi;
+﻿using Fast.Template.IdsAdmin;
+using Localization.Resources.AbpUi;
 using Fast.Template.Start.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -8,7 +9,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -18,7 +18,8 @@ namespace Fast.Template.Start;
     typeof(AbpPermissionManagementHttpApiModule),
     typeof(AbpTenantManagementHttpApiModule),
     typeof(AbpFeatureManagementHttpApiModule),
-    typeof(AbpSettingManagementHttpApiModule)
+    typeof(AbpSettingManagementHttpApiModule),
+    typeof(IdsAdminHttpApiModule)
     )]
 public class StartHttpApiModule : AbpModule
 {

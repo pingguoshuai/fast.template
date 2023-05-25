@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Fast.Template.IdsAdmin;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Fast.Template.Start.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -14,7 +15,6 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -28,6 +28,7 @@ namespace Fast.Template.Start;
     typeof(AbpPermissionManagementDomainIdentityModule),
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
+    typeof(IdsAdminDomainModule),
     typeof(AbpEmailingModule)
 )]
 public class StartDomainModule : AbpModule

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.HttpApi\Fast.Template.IdsAdmin.HttpApi.csproj" />
     <ProjectReference Include="..\Fast.Template.Start.Application.Contracts\Fast.Template.Start.Application.Contracts.csproj" />
   </ItemGroup>
 

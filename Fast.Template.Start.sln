@@ -47,6 +47,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.Common.Utils"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.Common.Applicaiton", "modules\Common\Fast.Template.Common.Applicaiton\Fast.Template.Common.Applicaiton.csproj", "{BF5648D4-FB6F-498C-B371-C928C9B1E5C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdsAdmin", "IdsAdmin", "{E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.Application", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.Application\Fast.Template.IdsAdmin.Application.csproj", "{65F054F5-B2DE-4625-A860-CC79F8A3E4EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.Application.Contracts", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.Application.Contracts\Fast.Template.IdsAdmin.Application.Contracts.csproj", "{5D647697-5A52-4EC2-A13A-96CCE83362A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.Domain", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.Domain\Fast.Template.IdsAdmin.Domain.csproj", "{8B23C6BD-D702-4FD2-A977-B03FD0BC3683}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.Domain.Shared", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.Domain.Shared\Fast.Template.IdsAdmin.Domain.Shared.csproj", "{5ECAEF8E-B985-4577-B23F-22B1EFFEF418}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.EntityFrameworkCore", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.EntityFrameworkCore\Fast.Template.IdsAdmin.EntityFrameworkCore.csproj", "{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.HttpApi", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.HttpApi\Fast.Template.IdsAdmin.HttpApi.csproj", "{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.IdsAdmin.HttpApi.Client", "modules\IdsAdmin\src\Fast.Template.IdsAdmin.HttpApi.Client\Fast.Template.IdsAdmin.HttpApi.Client.csproj", "{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +141,34 @@ Global
 		{BF5648D4-FB6F-498C-B371-C928C9B1E5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF5648D4-FB6F-498C-B371-C928C9B1E5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF5648D4-FB6F-498C-B371-C928C9B1E5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65F054F5-B2DE-4625-A860-CC79F8A3E4EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65F054F5-B2DE-4625-A860-CC79F8A3E4EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65F054F5-B2DE-4625-A860-CC79F8A3E4EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65F054F5-B2DE-4625-A860-CC79F8A3E4EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D647697-5A52-4EC2-A13A-96CCE83362A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D647697-5A52-4EC2-A13A-96CCE83362A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D647697-5A52-4EC2-A13A-96CCE83362A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D647697-5A52-4EC2-A13A-96CCE83362A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B23C6BD-D702-4FD2-A977-B03FD0BC3683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B23C6BD-D702-4FD2-A977-B03FD0BC3683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B23C6BD-D702-4FD2-A977-B03FD0BC3683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B23C6BD-D702-4FD2-A977-B03FD0BC3683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ECAEF8E-B985-4577-B23F-22B1EFFEF418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ECAEF8E-B985-4577-B23F-22B1EFFEF418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ECAEF8E-B985-4577-B23F-22B1EFFEF418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ECAEF8E-B985-4577-B23F-22B1EFFEF418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +193,14 @@ Global
 		{16937A11-C72E-43E5-976D-1E08254F2A33} = {53EA18AD-7351-440C-8CFE-654754858A3F}
 		{A4B25B4E-8A64-40DD-81CC-CC1CB9F2517E} = {16937A11-C72E-43E5-976D-1E08254F2A33}
 		{BF5648D4-FB6F-498C-B371-C928C9B1E5C8} = {16937A11-C72E-43E5-976D-1E08254F2A33}
+		{E56C13E4-AB53-4EAF-9D51-6D129AC1B05C} = {53EA18AD-7351-440C-8CFE-654754858A3F}
+		{65F054F5-B2DE-4625-A860-CC79F8A3E4EA} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{5D647697-5A52-4EC2-A13A-96CCE83362A1} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{8B23C6BD-D702-4FD2-A977-B03FD0BC3683} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{5ECAEF8E-B985-4577-B23F-22B1EFFEF418} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{EBB7776E-AA1E-4D51-A661-C23ED7D9E7B0} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{59F3D4E0-6305-4A16-AFF2-4DE70C25D0A2} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
+		{DBA765A7-27F2-46E3-AFDF-B5F6A96173D7} = {E56C13E4-AB53-4EAF-9D51-6D129AC1B05C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}
