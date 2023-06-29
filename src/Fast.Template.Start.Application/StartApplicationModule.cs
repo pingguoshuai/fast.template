@@ -1,4 +1,5 @@
-﻿using Fast.Template.IdsAdmin;
+﻿using System.ComponentModel;
+using Fast.Template.IdsAdmin;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
@@ -21,6 +22,7 @@ namespace Fast.Template.Start;
     typeof(AbpSettingManagementApplicationModule),
     typeof(IdsAdminApplicationModule)
     )]
+[Description("用户角色")]
 public class StartApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
