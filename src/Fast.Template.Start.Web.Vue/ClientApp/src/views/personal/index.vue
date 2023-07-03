@@ -2,7 +2,7 @@
 	<div class="personal">
 		<el-row>
 			<!-- 个人信息 -->
-			<el-col :xs="24" :sm="16">
+			<!-- <el-col :xs="24" :sm="24">
 				<el-card shadow="hover" header="个人信息">
 					<div class="personal-user">
 						<div class="personal-user-left">
@@ -41,10 +41,10 @@
 						</div>
 					</div>
 				</el-card>
-			</el-col>
+			</el-col> -->
 
 			<!-- 消息通知 -->
-			<el-col :xs="24" :sm="8" class="pl15 personal-info">
+			<!-- <el-col :xs="24" :sm="8" class="pl15 personal-info">
 				<el-card shadow="hover">
 					<template #header>
 						<span>消息通知</span>
@@ -58,24 +58,7 @@
 						</ul>
 					</div>
 				</el-card>
-			</el-col>
-
-			<!-- 营销推荐 -->
-			<el-col :span="24">
-				<el-card shadow="hover" class="mt15" header="营销推荐">
-					<el-row :gutter="15" class="personal-recommend-row">
-						<el-col :sm="6" v-for="(v, k) in recommendList" :key="k" class="personal-recommend-col">
-							<div class="personal-recommend" :style="{ 'background-color': v.bg }">
-								<SvgIcon :name="v.icon" :size="70" :style="{ color: v.iconColor }" />
-								<div class="personal-recommend-auto">
-									<div>{{ v.title }}</div>
-									<div class="personal-recommend-msg">{{ v.msg }}</div>
-								</div>
-							</div>
-						</el-col>
-					</el-row>
-				</el-card>
-			</el-col>
+			</el-col> -->
 
 			<!-- 更新信息 -->
 			<el-col :span="24">
@@ -144,7 +127,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="personal-edit-safe-box">
+					<!-- <div class="personal-edit-safe-box">
 						<div class="personal-edit-safe-item">
 							<div class="personal-edit-safe-item-left">
 								<div class="personal-edit-safe-item-left-label">密保手机</div>
@@ -176,7 +159,7 @@
 								<el-button text type="primary">立即设置</el-button>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</el-card>
 			</el-col>
 		</el-row>
