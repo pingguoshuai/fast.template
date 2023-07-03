@@ -121,7 +121,7 @@ public class StartHttpApiHostModule : AbpModule
             configuration["AuthServer:Authority"],
             new Dictionary<string, string>
             {
-                    {"Start", "Start API"}
+                    {"Template", "Template API"}
             },
             options =>
             {
@@ -153,6 +153,7 @@ public class StartHttpApiHostModule : AbpModule
                     return false;
                 });
                 options.CustomSchemaIds(type => type.FullName);
+                options.ResolveConflictingActions(api => api.First());
 
                 #region ×¢ÊÍ£º·´ÉäÉ¨ÃèxmlÎÄ¼ş
 

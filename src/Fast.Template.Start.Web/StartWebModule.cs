@@ -159,10 +159,11 @@ public class StartWebModule : AbpModule
                 options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
 
-                options.Scope.Add("roles");
+                options.Scope.Add("role");
                 options.Scope.Add("email");
                 options.Scope.Add("phone");
-                options.Scope.Add("Start");
+                options.Scope.Add("profile");
+                options.Scope.Add("Template");
             });
     }
 
