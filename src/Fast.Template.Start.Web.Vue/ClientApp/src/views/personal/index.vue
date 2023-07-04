@@ -64,48 +64,36 @@
 			<el-col :span="24">
 				<el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
 					<div class="personal-edit-title">基本信息</div>
-					<el-form :model="personalForm" size="default" label-width="40px" class="mt35 mb35">
+					<el-form :model="state.formData" ref="formRef" size="default" label-width="40px" class="mt35 mb35">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="昵称">
-									<el-input v-model="personalForm.name" placeholder="请输入昵称" clearable></el-input>
+								<el-form-item label="用户名" prop="userName" label-width="70px">
+									<el-input v-model="state.formData.userName" placeholder="请输入用户名" clearable disabled></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="邮箱">
-									<el-input v-model="personalForm.email" placeholder="请输入邮箱" clearable></el-input>
+								<el-form-item label="邮箱" prop="email" label-width="70px" :rules="[{ required: true, type: 'email', message: '请输入邮箱' }]">
+									<el-input v-model="state.formData.email" placeholder="请输入邮箱" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="签名">
-									<el-input v-model="personalForm.autograph" placeholder="请输入签名" clearable></el-input>
+								<el-form-item label="姓" label-width="70px">
+									<el-input v-model="state.formData.surName" placeholder="请输入姓" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="职业">
-									<el-select v-model="personalForm.occupation" placeholder="请选择职业" clearable class="w100">
-										<el-option label="计算机 / 互联网 / 通信" value="1"></el-option>
-										<el-option label="生产 / 工艺 / 制造" value="2"></el-option>
-										<el-option label="医疗 / 护理 / 制药" value="3"></el-option>
-									</el-select>
+								<el-form-item label="名" label-width="70px">
+									<el-input v-model="state.formData.name" placeholder="请输入名" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="手机">
-									<el-input v-model="personalForm.phone" placeholder="请输入手机" clearable></el-input>
-								</el-form-item>
-							</el-col>
-							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="性别">
-									<el-select v-model="personalForm.sex" placeholder="请选择性别" clearable class="w100">
-										<el-option label="男" value="1"></el-option>
-										<el-option label="女" value="2"></el-option>
-									</el-select>
+								<el-form-item label="手机" prop="phoneNumber" label-width="70px" :rules="[{ required: true, type: 'phone', message: '请输入手机' }]">
+									<el-input v-model="state.formData.phoneNumber" placeholder="请输入手机" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 								<el-form-item>
-									<el-button type="primary">
+									<el-button type="primary" @click="onSubmit">
 										<el-icon>
 											<ele-Position />
 										</el-icon>
@@ -166,42 +154,32 @@
 	</div>
 </template>
 
-<script lang="ts">
-import { toRefs, reactive, computed, defineComponent } from 'vue';
-import { formatAxis } from '/@/utils/formatTime';
-import { newsInfoList, recommendList } from './mock';
+<script lang="ts" setup>
+import { ElMessage } from 'element-plus';
+import { toRefs, reactive, computed, defineComponent, onMounted, ref } from 'vue';
+import { accountService } from '/@/api/account';
+import { ProfileDto } from '/@/api/account/model';
 
-// 定义接口来定义对象的类型
-interface PersonalState {
-	newsInfoList: any;
-	recommendList: any;
-	personalForm: any;
-}
+const formRef = ref();
 
-export default defineComponent({
-	name: 'personal',
-	setup() {
-		const state = reactive<PersonalState>({
-			newsInfoList,
-			recommendList,
-			personalForm: {
-				name: '',
-				email: '',
-				autograph: '',
-				occupation: '',
-				phone: '',
-				sex: '',
-			},
-		});
-		// 当前时间提示语
-		const currentTime = computed(() => {
-			return formatAxis(new Date());
-		});
-		return {
-			currentTime,
-			...toRefs(state),
-		};
-	},
+const state = reactive({
+	formData: new ProfileDto(),
+});
+
+const apiService = new accountService();
+const getData = async () => {
+	const { data } = await apiService.getAsync();
+	state.formData = data;
+};
+
+const onSubmit = async () => {
+	await formRef.value?.validate();
+	await apiService.updateAsync(state.formData);
+	ElMessage.success('操作成功');
+};
+
+onMounted(() => {
+	getData();
 });
 </script>
 
