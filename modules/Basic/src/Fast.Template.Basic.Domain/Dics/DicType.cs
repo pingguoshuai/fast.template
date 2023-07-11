@@ -9,7 +9,7 @@ namespace Fast.Template.Basic.Dics
     /// <summary>
     /// 字典类型
     /// </summary>
-    public class DicType : FullAuditedAggregateRoot<DicType>
+    public class DicType : FullAuditedAggregateRoot<Guid>
     {
         /// <summary>
         /// 名称
@@ -29,6 +29,6 @@ namespace Fast.Template.Basic.Dics
         /// 状态
         /// </summary>
         [Required]
-        public bool Status { get; set; }
+        public bool Status { get; set; } = true;
     }
 }

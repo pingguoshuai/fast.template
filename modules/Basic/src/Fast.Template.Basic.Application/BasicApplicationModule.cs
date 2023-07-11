@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
-
 namespace Fast.Template.Basic;
 
 [DependsOn(
@@ -11,6 +11,7 @@ namespace Fast.Template.Basic;
     typeof(AbpDddApplicationModule),
     typeof(AbpAutoMapperModule)
     )]
+[Description("基础建设")]
 public class BasicApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

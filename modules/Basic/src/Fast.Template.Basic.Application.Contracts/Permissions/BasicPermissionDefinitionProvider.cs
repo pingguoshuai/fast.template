@@ -1,4 +1,4 @@
-﻿using Fast.Template.Basic.Localization;
+using Fast.Template.Basic.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -9,6 +9,11 @@ public class BasicPermissionDefinitionProvider : PermissionDefinitionProvider
     public override void Define(IPermissionDefinitionContext context)
     {
         var myGroup = context.AddGroup(BasicPermissions.GroupName, L("Permission:Basic"));
+
+        var dicTypePermission = myGroup.AddPermission(BasicPermissions.DicType.Default, L("Permission:DicType"));
+        dicTypePermission.AddChild(BasicPermissions.DicType.Create, L("Permission:Create"));
+        dicTypePermission.AddChild(BasicPermissions.DicType.Update, L("Permission:Update"));
+        dicTypePermission.AddChild(BasicPermissions.DicType.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

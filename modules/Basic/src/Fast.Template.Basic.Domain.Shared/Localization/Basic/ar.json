@@ -2,6 +2,20 @@
   "culture": "ar",
   "texts": {
     "MyAccount": "إدارة ملفى",
-    "SamplePageMessage": "صفحة نموذجية للوحدة النمطية Basic"
+    "SamplePageMessage": "صفحة نموذجية للوحدة النمطية Basic",
+    "Permission:DicType": "DicType",
+    "Permission:Create": "Create",
+    "Permission:Update": "Update",
+    "Permission:Delete": "Delete",
+    "Menu:DicType": "MenuDicType",
+    "DicType": "DicType",
+    "DicTypeName": "DicTypeName",
+    "DicTypeCode": "DicTypeCode",
+    "DicTypeStatus": "DicTypeStatus",
+    "CreateDicType": "CreateDicType",
+    "EditDicType": "EditDicType",
+    "DicTypeDeletionConfirmationMessage": "Are you sure to delete the dicType {0}?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "TableFilter": "TableFilter"
   }
 }

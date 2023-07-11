@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Fast.Template.Basic.Dics;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Fast.Template.Basic.EntityFrameworkCore;
 
@@ -29,5 +31,15 @@ public static class BasicDbContextModelCreatingExtensions
             b.HasIndex(q => q.CreationTime);
         });
         */
+
+
+        builder.Entity<DicType>(b =>
+        {
+            b.ToTable(BasicDbProperties.DbTablePrefix + "DicType", BasicDbProperties.DbSchema, table => table.HasComment("字典类型"));
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }
