@@ -1,0 +1,79 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "Fast.Template.Basic.Domain.Shared": {
+      "path": "src/Fast.Template.Basic.Domain.Shared/Fast.Template.Basic.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.Domain": {
+      "path": "src/Fast.Template.Basic.Domain/Fast.Template.Basic.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.Application.Contracts": {
+      "path": "src/Fast.Template.Basic.Application.Contracts/Fast.Template.Basic.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.Application": {
+      "path": "src/Fast.Template.Basic.Application/Fast.Template.Basic.Application.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.EntityFrameworkCore": {
+      "path": "src/Fast.Template.Basic.EntityFrameworkCore/Fast.Template.Basic.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.MongoDB": {
+      "path": "src/Fast.Template.Basic.MongoDB/Fast.Template.Basic.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.HttpApi": {
+      "path": "src/Fast.Template.Basic.HttpApi/Fast.Template.Basic.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.HttpApi.Client": {
+      "path": "src/Fast.Template.Basic.HttpApi.Client/Fast.Template.Basic.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.Basic.TestBase": {
+      "path": "test/Fast.Template.Basic.TestBase/Fast.Template.Basic.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.EntityFrameworkCore.Tests": {
+      "path": "test/Fast.Template.Basic.EntityFrameworkCore.Tests/Fast.Template.Basic.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.MongoDB.Tests": {
+      "path": "test/Fast.Template.Basic.MongoDB.Tests/Fast.Template.Basic.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.Domain.Tests": {
+      "path": "test/Fast.Template.Basic.Domain.Tests/Fast.Template.Basic.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.Application.Tests": {
+      "path": "test/Fast.Template.Basic.Application.Tests/Fast.Template.Basic.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.HttpApi.Host": {
+      "path": "host/Fast.Template.Basic.HttpApi.Host/Fast.Template.Basic.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "Fast.Template.Basic.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Fast.Template.Basic.HttpApi.Client.ConsoleTestApp/Fast.Template.Basic.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.Basic.AuthServer": {
+      "path": "host/Fast.Template.Basic.AuthServer/Fast.Template.Basic.AuthServer.abppkg.json",
+      "folder": "host"
+    },
+    "Fast.Template.Basic.Host.Shared": {
+      "path": "host/Fast.Template.Basic.Host.Shared/Fast.Template.Basic.Host.Shared.abppkg.json",
+      "folder": "host"
+    }
+  }
+}
