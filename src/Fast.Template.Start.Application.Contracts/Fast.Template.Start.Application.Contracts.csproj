@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -9,18 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\Basic\src\Fast.Template.Basic.Application.Contracts\Fast.Template.Basic.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.Application.Contracts\Fast.Template.IdsAdmin.Application.Contracts.csproj" />
     <ProjectReference Include="..\Fast.Template.Start.Domain.Shared\Fast.Template.Start.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.ObjectExtending" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.SettingManagement.Application.Contracts" Version="7.2.2" />
+    <PackageReference Include="Volo.Abp.ObjectExtending" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application.Contracts" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application.Contracts" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application.Contracts" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application.Contracts" Version="7.2.3" />
   </ItemGroup>
 
 </Project>

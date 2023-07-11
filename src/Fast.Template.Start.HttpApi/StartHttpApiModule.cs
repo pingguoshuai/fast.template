@@ -1,4 +1,5 @@
-﻿using Fast.Template.IdsAdmin;
+﻿using Fast.Template.Basic;
+using Fast.Template.IdsAdmin;
 using Localization.Resources.AbpUi;
 using Fast.Template.Start.Localization;
 using Volo.Abp.Account;
@@ -19,7 +20,8 @@ namespace Fast.Template.Start;
     typeof(AbpTenantManagementHttpApiModule),
     typeof(AbpFeatureManagementHttpApiModule),
     typeof(AbpSettingManagementHttpApiModule),
-    typeof(IdsAdminHttpApiModule)
+    typeof(IdsAdminHttpApiModule),
+    typeof(BasicHttpApiModule)
     )]
 public class StartHttpApiModule : AbpModule
 {

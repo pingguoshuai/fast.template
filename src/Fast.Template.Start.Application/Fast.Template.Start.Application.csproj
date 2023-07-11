@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -10,18 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\Basic\src\Fast.Template.Basic.Application\Fast.Template.Basic.Application.csproj" />
     <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.Application\Fast.Template.IdsAdmin.Application.csproj" />
     <ProjectReference Include="..\Fast.Template.Start.Domain\Fast.Template.Start.Domain.csproj" />
     <ProjectReference Include="..\Fast.Template.Start.Application.Contracts\Fast.Template.Start.Application.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Account.Application" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.Identity.Application" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="7.2.2" />
-    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="7.2.2" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="7.2.3" />
   </ItemGroup>
 
 </Project>

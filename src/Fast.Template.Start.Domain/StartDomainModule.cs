@@ -1,4 +1,5 @@
-﻿using Fast.Template.IdsAdmin;
+﻿using Fast.Template.Basic;
+using Fast.Template.IdsAdmin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Fast.Template.Start.MultiTenancy;
@@ -29,6 +30,7 @@ namespace Fast.Template.Start;
     typeof(AbpSettingManagementDomainModule),
     typeof(AbpTenantManagementDomainModule),
     typeof(IdsAdminDomainModule),
+    typeof(BasicDomainModule),
     typeof(AbpEmailingModule)
 )]
 public class StartDomainModule : AbpModule

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Fast.Template.Basic;
 using Fast.Template.IdsAdmin;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
@@ -20,7 +21,8 @@ namespace Fast.Template.Start;
     typeof(AbpTenantManagementApplicationModule),
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule),
-    typeof(IdsAdminApplicationModule)
+    typeof(IdsAdminApplicationModule),
+    typeof(BasicApplicationModule)
     )]
 [Description("用户角色")]
 public class StartApplicationModule : AbpModule

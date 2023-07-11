@@ -1,4 +1,5 @@
-﻿using Fast.Template.IdsAdmin;
+﻿using Fast.Template.Basic;
+using Fast.Template.IdsAdmin;
 using Fast.Template.Start.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
@@ -24,7 +25,8 @@ namespace Fast.Template.Start;
     typeof(AbpPermissionManagementDomainSharedModule),
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule),
-    typeof(IdsAdminDomainSharedModule)
+    typeof(IdsAdminDomainSharedModule),
+    typeof(BasicDomainSharedModule)
         )]
 public class StartDomainSharedModule : AbpModule
 {

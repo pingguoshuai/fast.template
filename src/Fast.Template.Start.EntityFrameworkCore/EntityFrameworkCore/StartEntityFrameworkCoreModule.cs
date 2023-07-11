@@ -1,4 +1,5 @@
 ﻿using System;
+using Fast.Template.Basic.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -27,7 +28,8 @@ namespace Fast.Template.Start.EntityFrameworkCore;
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule),
-    typeof(IdsAdminEntityFrameworkCoreModule)
+    typeof(IdsAdminEntityFrameworkCoreModule),
+    typeof(BasicEntityFrameworkCoreModule)
     )]
 public class StartEntityFrameworkCoreModule : AbpModule
 {

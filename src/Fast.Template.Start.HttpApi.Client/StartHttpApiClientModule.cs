@@ -1,4 +1,5 @@
-﻿using Fast.Template.IdsAdmin;
+﻿using Fast.Template.Basic;
+using Fast.Template.IdsAdmin;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
@@ -18,7 +19,8 @@ namespace Fast.Template.Start;
     typeof(AbpTenantManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpSettingManagementHttpApiClientModule),
-    typeof(IdsAdminHttpApiClientModule)
+    typeof(IdsAdminHttpApiClientModule),
+    typeof(BasicHttpApiClientModule)
 )]
 public class StartHttpApiClientModule : AbpModule
 {
