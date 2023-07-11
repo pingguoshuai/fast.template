@@ -2,7 +2,7 @@
 
 public static class BasicDbProperties
 {
-    public static string DbTablePrefix { get; set; } = "Basic";
+    public static string DbTablePrefix { get; set; } = "basic_";
 
     public static string? DbSchema { get; set; } = null;
 
