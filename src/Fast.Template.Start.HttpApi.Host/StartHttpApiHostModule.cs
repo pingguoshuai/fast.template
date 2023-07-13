@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Fast.Template.Basic;
 using Fast.Template.IdsAdmin;
 using Medallion.Threading;
 using Medallion.Threading.Redis;
@@ -100,6 +101,10 @@ public class StartHttpApiHostModule : AbpModule
             options.ConventionalControllers.Create(typeof(IdsAdminApplicationModule).Assembly, ops =>
             {
                 ops.RootPath = "IdsAdmin";
+            });
+            options.ConventionalControllers.Create(typeof(BasicApplicationModule).Assembly, ops =>
+            {
+                ops.RootPath = "Basic";
             });
         });
     }
