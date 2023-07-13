@@ -21,7 +21,31 @@ public class Program
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
-            .WriteTo.Async(c => c.File("Logs/logs.txt"))
+            //.WriteTo.Async(c => c.File("Logs/logs.txt"))
+            .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Debug)
+                .WriteTo.File("Logs/debug/logs.txt",
+                    fileSizeLimitBytes: 1024 * 1024 * 3,
+                    rollOnFileSizeLimit: true,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 100))
+            .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Information)
+                .WriteTo.File("Logs/Information/logs.txt",
+                    fileSizeLimitBytes: 1024 * 1024 * 3,
+                    rollOnFileSizeLimit: true,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 100))
+            .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Warning)
+                .WriteTo.File("Logs/warning/logs.txt",
+                    fileSizeLimitBytes: 1024 * 1024 * 3,
+                    rollOnFileSizeLimit: true,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 100))
+            .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Error)
+                .WriteTo.File("Logs/error/logs.txt",
+                    fileSizeLimitBytes: 1024 * 1024 * 3,
+                    rollOnFileSizeLimit: true,
+                    rollingInterval: RollingInterval.Day,
+                    retainedFileCountLimit: 100))
             .WriteTo.Async(c => c.Console())
             .CreateLogger();
 
