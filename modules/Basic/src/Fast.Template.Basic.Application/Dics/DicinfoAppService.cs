@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Fast.Template.Basic.Permissions;
 using Fast.Template.Basic.Dics.Dtos;
 using Fast.Template.Common.Applicaiton.Base;
+using Volo.Abp;
+using Volo.Abp.Domain.Repositories;
 
 namespace Fast.Template.Basic.Dics;
 
@@ -35,5 +37,22 @@ public class DicinfoAppService : BaseCrudAppService<Dicinfo, DicinfoDto, Guid, D
             .WhereIf(!input.Value.IsNullOrWhiteSpace(), x => x.Value.Contains(input.Value))
             .WhereIf(input.Status != null, x => x.Status == input.Status)
             ;
+    }
+
+    protected override async Task CreateBeforeAsync(Dicinfo entity)
+    {
+        if (await _repository.AnyAsync(d => d.Value.Equals(entity.Value)))
+        {
+            throw new UserFriendlyException("编码已存在");
+        }
+    }
+
+    protected override async Task UpdateBeforeAsync(Dicinfo entity)
+    {
+        var exists = await _repository.AnyAsync(d => d.Id != entity.Id && d.Value.Equals(entity.Value));
+        if (exists)
+        {
+            throw new UserFriendlyException("编码已存在");
+        }
     }
 }
