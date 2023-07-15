@@ -19,6 +19,7 @@ public class BasicEntityFrameworkCoreModule : AbpModule
                  * options.AddRepository<Question, EfCoreQuestionRepository>();
                  */
             options.AddRepository<DicType, DicTypeRepository>();
+            options.AddRepository<Dicinfo, DicinfoRepository>();
         });
     }
 }

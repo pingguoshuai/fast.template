@@ -41,5 +41,15 @@ public static class BasicDbContextModelCreatingExtensions
 
             /* Configure more properties here */
         });
+
+
+        builder.Entity<Dicinfo>(b =>
+        {
+            b.ToTable(BasicDbProperties.DbTablePrefix + "Dicinfo", BasicDbProperties.DbSchema, table => table.HasComment("数据字典"));
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }

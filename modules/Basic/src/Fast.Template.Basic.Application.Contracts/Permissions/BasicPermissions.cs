@@ -20,4 +20,14 @@ public class BasicPermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Dicinfo
+    {
+        public const string Default = GroupName + ".Dicinfo";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

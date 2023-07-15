@@ -16,6 +16,18 @@
     "EditDicType": "EditDicType",
     "DicTypeDeletionConfirmationMessage": "Are you sure to delete the dicType {0}?",
     "SuccessfullyDeleted": "Successfully deleted",
-    "TableFilter": "TableFilter"
+    "TableFilter": "TableFilter",
+    "Permission:Dicinfo": "Dicinfo",
+    "Menu:Dicinfo": "MenuDicinfo",
+    "Dicinfo": "Dicinfo",
+    "DicinfoDictypeId": "DicinfoDictypeId",
+    "DicinfoDicType": "DicinfoDicType",
+    "DicinfoName": "DicinfoName",
+    "DicinfoValue": "DicinfoValue",
+    "DicinfoSort": "DicinfoSort",
+    "DicinfoStatus": "DicinfoStatus",
+    "CreateDicinfo": "CreateDicinfo",
+    "EditDicinfo": "EditDicinfo",
+    "DicinfoDeletionConfirmationMessage": "Are you sure to delete the dicinfo {0}?"
   }
 }

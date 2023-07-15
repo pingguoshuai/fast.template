@@ -15,4 +15,8 @@ public interface IBasicDbContext : IEfCoreDbContext
     /// 字典类型
     /// </summary>
     DbSet<DicType> DicTypes { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    DbSet<Dicinfo> Dicinfos { get; set; }
 }

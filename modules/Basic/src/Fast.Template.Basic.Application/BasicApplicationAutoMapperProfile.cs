@@ -13,5 +13,7 @@ public class BasicApplicationAutoMapperProfile : Profile
          * into multiple profile classes for a better organization. */
         CreateMap<DicType, DicTypeDto>();
         CreateMap<CreateUpdateDicTypeDto, DicType>(MemberList.Source);
+        CreateMap<Dicinfo, DicinfoDto>();
+        CreateMap<CreateUpdateDicinfoDto, Dicinfo>(MemberList.Source);
     }
 }

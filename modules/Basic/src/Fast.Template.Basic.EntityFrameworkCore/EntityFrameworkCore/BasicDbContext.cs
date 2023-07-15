@@ -15,6 +15,10 @@ public class BasicDbContext : AbpDbContext<BasicDbContext>, IBasicDbContext
     /// 字典类型
     /// </summary>
     public DbSet<DicType> DicTypes { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<Dicinfo> Dicinfos { get; set; }
 
     public BasicDbContext(DbContextOptions<BasicDbContext> options)
         : base(options)
