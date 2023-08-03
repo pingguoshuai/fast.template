@@ -25,21 +25,21 @@ public class StartPermissionDefinitionProvider : PermissionDefinitionProvider
         //myGroup.AddPermission(StartPermissions.MyPermission1, L("Permission:MyPermission1"));
 
         //反射
-        var permissionModules = _moduleContainer.Modules.Where(m => m.Type.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
+        //var permissionModules = _moduleContainer.Modules.Where(m => m.Type.GetCustomAttribute<DescriptionAttribute>() != null).ToList();
 
-        foreach (var module in permissionModules)
-        {
-            //查找service
-            var services = module.Assembly.GetTypes().Where(t => typeof(IApplicationService).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract).ToList();
+        //foreach (var module in permissionModules)
+        //{
+        //    //查找service
+        //    var services = module.Assembly.GetTypes().Where(t => typeof(IApplicationService).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract).ToList();
 
-            foreach (var service in services)
-            {
-                //myGroup.AddPermission(service.Name.Replace("AppService",""));
+        //    foreach (var service in services)
+        //    {
+        //        //myGroup.AddPermission(service.Name.Replace("AppService",""));
 
-                //获取方法
-                var methods = service.GetMethods(BindingFlags.Public | BindingFlags.Instance);
-            }
-        }
+        //        //获取方法
+        //        var methods = service.GetMethods(BindingFlags.Public | BindingFlags.Instance);
+        //    }
+        //}
     }
 
     private static LocalizableString L(string name)
