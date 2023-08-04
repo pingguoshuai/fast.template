@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Identity;
 
-namespace Fast.Template.Start.Identity
+namespace Fast.Template.Start.Controllers
 {
-    [RemoteService(IsEnabled = false)]
-    public class RoleAppService : IdentityRoleAppService, IRoleAppService
+    public class RoleController: IdentityRoleController
     {
-        public RoleAppService(IdentityRoleManager roleManager, IIdentityRoleRepository roleRepository) : base(roleManager, roleRepository)
+        public RoleController(IIdentityRoleAppService roleAppService) : base(roleAppService)
         {
         }
 

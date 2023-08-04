@@ -1,33 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
+using Fast.Template.Start.Identity;
 using Fast.Template.Start.Identity.Dtos;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Guids;
 using Volo.Abp.Identity;
 
-namespace Fast.Template.Start.Identity
+namespace Fast.Template.Start.Controllers
 {
-    [RemoteService(IsEnabled = false)]
-    [Route("api/identity/users")]
-    public class UserAppService : IdentityUserAppService, IUserAppService
+    public class UserController : IdentityUserController
     {
-        private readonly IGuidGenerator _guidGenerator;
-        private readonly IIdentityUserRepository _userRepository;
+        private readonly IUserAppService _userService;
 
-        public UserAppService(
-            IGuidGenerator guidGenerator, IdentityUserManager userManager, IIdentityUserRepository userRepository, IIdentityRoleRepository roleRepository, IOptions<IdentityOptions> identityOptions) : base(userManager, userRepository, roleRepository, identityOptions)
+
+        public UserController(IUserAppService userService, IIdentityUserAppService identityUserService) :base(identityUserService)
         {
-            _guidGenerator = guidGenerator;
-            _userRepository = userRepository;
+            _userService = userService;
         }
+
 
         #region basic
 
@@ -92,14 +83,14 @@ namespace Fast.Template.Start.Identity
             return base.GetRolesAsync(id);
         }
 
-        /// <summary>
-        /// 获取可使用的角色列表
-        /// </summary>
-        /// <returns></returns>
-        public override Task<ListResultDto<IdentityRoleDto>> GetAssignableRolesAsync()
-        {
-            return base.GetAssignableRolesAsync();
-        }
+        ///// <summary>
+        ///// 获取可使用的角色列表
+        ///// </summary>
+        ///// <returns></returns>
+        //public override Task<ListResultDto<IdentityRoleDto>> GetAssignableRolesAsync()
+        //{
+        //    return base.GetAssignableRolesAsync();
+        //}
 
         /// <summary>
         /// 更新用户角色
@@ -117,7 +108,6 @@ namespace Fast.Template.Start.Identity
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        [HttpGet]
         public override Task<IdentityUserDto> FindByUsernameAsync(string userName)
         {
             return base.FindByUsernameAsync(userName);
@@ -128,7 +118,6 @@ namespace Fast.Template.Start.Identity
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        [HttpGet]
         public override Task<IdentityUserDto> FindByEmailAsync(string email)
         {
             return base.FindByEmailAsync(email);
@@ -138,17 +127,15 @@ namespace Fast.Template.Start.Identity
 
 
         #region claims
-
         /// <summary>
         /// claim列表
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet("{id}/claims")]
         public virtual async Task<List<ClaimDto>> GetClaimsAsync(Guid id)
         {
-            var entity = await _userRepository.GetAsync(id);
-
-            return entity.Claims.Select(a => ObjectMapper.Map<IdentityUserClaim, ClaimDto>(a)).ToList();
+            return await _userService.GetClaimsAsync(id);
         }
 
         /// <summary>
@@ -157,14 +144,10 @@ namespace Fast.Template.Start.Identity
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
+        [HttpPost("{id}/add-claim")]
         public async Task PostAddClaimAsync(Guid id, ClaimDto input)
         {
-            var entity = await _userRepository.GetAsync(id);
-            Claim claim = new Claim(input.ClaimType, input.ClaimValue);
-
-            entity.RemoveClaim(claim);
-            entity.AddClaim(_guidGenerator, claim);
-            await _userRepository.UpdateAsync(entity, autoSave: true);
+            await _userService.PostAddClaimAsync(id, input);
         }
 
         /// <summary>
@@ -173,13 +156,10 @@ namespace Fast.Template.Start.Identity
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
+        [HttpDelete("{id}/remove-claim")]
         public async Task DeleteRemoveClaimAsync(Guid id, ClaimDto input)
         {
-            var entity = await _userRepository.GetAsync(id);
-            Claim claim = new Claim(input.ClaimType, input.ClaimValue);
-
-            entity.RemoveClaim(claim);
-            await _userRepository.UpdateAsync(entity);
+            await _userService.DeleteRemoveClaimAsync(id, input);
         }
         #endregion
     }
