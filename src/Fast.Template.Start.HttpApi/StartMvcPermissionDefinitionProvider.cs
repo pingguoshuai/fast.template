@@ -27,6 +27,12 @@ namespace Fast.Template.Start
             var controllerFeature = new ControllerFeature();
             _partManager.PopulateFeature(controllerFeature);
             var controllerTypes = controllerFeature.Controllers.Where(c=>c.Name.EndsWith("AppService")).ToList();
+            //var controllerModels = controllerTypes.Select(c=>new ControllerModel(c,c.GetCustomAttributes(true)));
+
+            //foreach (var controller in controllerModels)
+            //{
+            //    var actions = controller.Actions.ToList();
+            //}
 
             //var controllers = _applicationModel.Controllers.ToList();
         }
