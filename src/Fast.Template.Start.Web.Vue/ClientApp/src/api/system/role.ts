@@ -8,7 +8,7 @@ import request from "/@/utils/request";
 export class roleService {
     createAsync(input: createRoleDto) {
         return request({
-            url: '/api/app/role',
+            url: '/api/identity/roles',
             method: 'POST',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -17,7 +17,7 @@ export class roleService {
 
     updateAsync(id: string, input: createRoleDto) {
         return request({
-            url: `/api/app/role/${id}`,
+            url: `/api/identity/roles/${id}`,
             method: 'PUT',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -26,7 +26,7 @@ export class roleService {
 
     getAsync(id: string) {
         return request({
-            url: `/api/app/role/${id}`,
+            url: `/api/identity/roles/${id}`,
             method: 'GET',
             baseURL: apiConfig.AccountUrl
         });
@@ -34,7 +34,7 @@ export class roleService {
 
     getListAsync(input: IPageRequestQuery): AxiosPromise<PageResult<roleDto>> {
         return request({
-            url: '/api/app/role',
+            url: '/api/identity/roles',
             method: 'get',
             params: input,
             baseURL: apiConfig.AccountUrl
@@ -43,7 +43,7 @@ export class roleService {
 
     deleteAsync(id: string) {
         return request({
-            url: `/api/app/role/${id}`,
+            url: `/api/identity/roles/${id}`,
             method: 'DELETE',
             baseURL: apiConfig.AccountUrl
         });

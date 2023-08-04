@@ -10,7 +10,7 @@ import request from "/@/utils/request";
 export class userService {
     createAsync(input: createIdentityUserDto): AxiosPromise<identityUserDto> {
         return request({
-            url: '/api/app/user',
+            url: '/api/identity/users',
             method: 'POST',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -19,7 +19,7 @@ export class userService {
 
     updateAsync(id: string, input: createIdentityUserDto): AxiosPromise<identityUserDto> {
         return request({
-            url: `/api/app/user/${id}`,
+            url: `/api/identity/users/${id}`,
             method: 'PUT',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -27,7 +27,7 @@ export class userService {
     }
     getListAsync(input: IPageRequestQuery): AxiosPromise<PageResult<identityUserDto>> {
         return request({
-            url: '/api/app/user',
+            url: '/api/identity/users',
             method: 'get',
             params: input,
             baseURL: apiConfig.AccountUrl
@@ -35,14 +35,14 @@ export class userService {
     }
     deleteAsync(id: string) {
         return request({
-            url: `/api/app/user/${id}`,
+            url: `/api/identity/users/${id}`,
             method: 'DELETE',
             baseURL: apiConfig.AccountUrl
         });
     }
     getAsync(id: string) {
         return request({
-            url: `/api/app/user/${id}`,
+            url: `/api/identity/users/${id}`,
             method: 'GET',
             baseURL: apiConfig.AccountUrl
         });
@@ -50,7 +50,7 @@ export class userService {
 
     getRolesAsync(id: string) {
         return request({
-            url: `/api/app/user/${id}/roles`,
+            url: `/api/identity/users/${id}/roles`,
             method: 'GET',
             baseURL: apiConfig.AccountUrl
         });
@@ -58,7 +58,7 @@ export class userService {
 
     getAssignableRolesAsync() {
         return request({
-            url: `/api/app/user/assignable-roles`,
+            url: `/api/identity/users/assignable-roles`,
             method: 'GET',
             baseURL: apiConfig.AccountUrl
         });
@@ -66,7 +66,7 @@ export class userService {
 
     updateRolesAsync(id: string, input: identityUserUpdateRolesDto) {
         return request({
-            url: `/api/app/user/${id}/roles`,
+            url: `/api/identity/users/${id}/roles`,
             method: 'PUT',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -75,7 +75,7 @@ export class userService {
 
     getByUsernameAsync(userName: string): AxiosPromise<identityUserDto> {
         return request({
-            url: `/api/app/user/find-by-username`,
+            url: `/api/identity/users/find-by-username`,
             method: 'GET',
             params: { userName: userName },
             baseURL: apiConfig.AccountUrl
@@ -84,7 +84,7 @@ export class userService {
 
     getByEmailAsync(email: string): AxiosPromise<identityUserDto> {
         return request({
-            url: `/api/app/user/find-by-email`,
+            url: `/api/identity/users/find-by-email`,
             method: 'GET',
             params: { email: email },
             baseURL: apiConfig.AccountUrl
@@ -93,7 +93,7 @@ export class userService {
 
     getCliamsAsync(id: string): AxiosPromise<claimDto[]> {
         return request({
-            url: `/api/app/user/${id}/claims`,
+            url: `/api/identity/users/${id}/claims`,
             method: 'GET',
             baseURL: apiConfig.AccountUrl
         });
@@ -101,7 +101,7 @@ export class userService {
 
     addClaimAsync(id: string, input: claimDto) {
         return request({
-            url: `/api/app/user/${id}/add-claim`,
+            url: `/api/identity/users/${id}/add-claim`,
             method: 'POST',
             data: input,
             baseURL: apiConfig.AccountUrl
@@ -110,7 +110,7 @@ export class userService {
 
     removeClaimAsync(id: string, input: claimDto) {
         return request({
-            url: `/api/app/user/${id}/remove-claim?ClaimType=${input.claimType}&ClaimValue=${input.claimValue}`,
+            url: `/api/identity/users/${id}/remove-claim?ClaimType=${input.claimType}&ClaimValue=${input.claimValue}`,
             method: 'DELETE',
             baseURL: apiConfig.AccountUrl
         });
