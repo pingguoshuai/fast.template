@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "Fast.Template.Basic": {
+      "path": "Fast.Template.Basic.abpmdl.json"
+    }
+  }
+}

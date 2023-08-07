@@ -1,0 +1,79 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "Fast.Template.IdsAdmin.Domain.Shared": {
+      "path": "src/Fast.Template.IdsAdmin.Domain.Shared/Fast.Template.IdsAdmin.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.Domain": {
+      "path": "src/Fast.Template.IdsAdmin.Domain/Fast.Template.IdsAdmin.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.Application.Contracts": {
+      "path": "src/Fast.Template.IdsAdmin.Application.Contracts/Fast.Template.IdsAdmin.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.Application": {
+      "path": "src/Fast.Template.IdsAdmin.Application/Fast.Template.IdsAdmin.Application.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.EntityFrameworkCore": {
+      "path": "src/Fast.Template.IdsAdmin.EntityFrameworkCore/Fast.Template.IdsAdmin.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.MongoDB": {
+      "path": "src/Fast.Template.IdsAdmin.MongoDB/Fast.Template.IdsAdmin.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.HttpApi": {
+      "path": "src/Fast.Template.IdsAdmin.HttpApi/Fast.Template.IdsAdmin.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.HttpApi.Client": {
+      "path": "src/Fast.Template.IdsAdmin.HttpApi.Client/Fast.Template.IdsAdmin.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "Fast.Template.IdsAdmin.TestBase": {
+      "path": "test/Fast.Template.IdsAdmin.TestBase/Fast.Template.IdsAdmin.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.EntityFrameworkCore.Tests": {
+      "path": "test/Fast.Template.IdsAdmin.EntityFrameworkCore.Tests/Fast.Template.IdsAdmin.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.MongoDB.Tests": {
+      "path": "test/Fast.Template.IdsAdmin.MongoDB.Tests/Fast.Template.IdsAdmin.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.Domain.Tests": {
+      "path": "test/Fast.Template.IdsAdmin.Domain.Tests/Fast.Template.IdsAdmin.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.Application.Tests": {
+      "path": "test/Fast.Template.IdsAdmin.Application.Tests/Fast.Template.IdsAdmin.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.HttpApi.Host": {
+      "path": "host/Fast.Template.IdsAdmin.HttpApi.Host/Fast.Template.IdsAdmin.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "Fast.Template.IdsAdmin.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Fast.Template.IdsAdmin.HttpApi.Client.ConsoleTestApp/Fast.Template.IdsAdmin.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "Fast.Template.IdsAdmin.IdentityServer": {
+      "path": "host/Fast.Template.IdsAdmin.IdentityServer/Fast.Template.IdsAdmin.IdentityServer.abppkg.json",
+      "folder": "host"
+    },
+    "Fast.Template.IdsAdmin.Host.Shared": {
+      "path": "host/Fast.Template.IdsAdmin.Host.Shared/Fast.Template.IdsAdmin.Host.Shared.abppkg.json",
+      "folder": "host"
+    }
+  }
+}

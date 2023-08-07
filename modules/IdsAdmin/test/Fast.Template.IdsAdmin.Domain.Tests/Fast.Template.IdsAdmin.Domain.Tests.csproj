@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Fast.Template.IdsAdmin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <ProjectReference Include="..\Fast.Template.IdsAdmin.EntityFrameworkCore.Tests\Fast.Template.IdsAdmin.EntityFrameworkCore.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

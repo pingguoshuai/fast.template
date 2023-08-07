@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Fast.Template.Start</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\Basic\src\Fast.Template.Basic.Domain\Fast.Template.Basic.Domain.csproj" />
+    <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.Domain\Fast.Template.IdsAdmin.Domain.csproj" />
+    <ProjectReference Include="..\Fast.Template.Start.Domain.Shared\Fast.Template.Start.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Emailing" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.Identity.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.IdentityServer.Domain" Version="7.2.3" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.IdentityServer" Version="7.2.3" />
+  </ItemGroup>
+
+</Project>
