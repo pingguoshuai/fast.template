@@ -12,4 +12,8 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Core" Version="7.2.3" />
+  </ItemGroup>
+
 </Project>

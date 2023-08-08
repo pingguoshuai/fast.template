@@ -34,6 +34,8 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Reflection;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -62,6 +64,10 @@ public class StartHttpApiHostModule : AbpModule
         ConfigureDistributedLocking(context, configuration);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
+
+        Configure<MvcOptions>(option => {
+            option.Conventions.Add(new PermissionConvention());
+        });
     }
 
     private void ConfigureCache(IConfiguration configuration)

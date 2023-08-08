@@ -5,8 +5,9 @@ using Volo.Abp.Application;
 using System;
 using Volo.Abp.Timing;
 using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc;
 using Fast.Template.Common.Applicaiton;
+using Fast.Template.Common.Utils.Attributes;
+using Fast.Template.Common.Permission;
 
 namespace Fast.Template.IdsAdmin;
 
@@ -15,9 +16,11 @@ namespace Fast.Template.IdsAdmin;
     typeof(IdsAdminApplicationContractsModule),
     typeof(AbpDddApplicationModule),
     typeof(AbpAutoMapperModule),
-    typeof(CommonApplicationModule)
+    typeof(CommonApplicationModule),
+    typeof(CommonPermissionModule)
     )]
 [Description("授权中心")]
+[Group("IdsAdmin")]
 public class IdsAdminApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

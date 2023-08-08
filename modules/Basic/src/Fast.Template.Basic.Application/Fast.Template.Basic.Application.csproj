@@ -12,6 +12,7 @@
     <PackageReference Include="Volo.Abp.AutoMapper" Version="7.2.3" />
     <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.2.3" />
     <ProjectReference Include="..\..\..\Common\Fast.Template.Common.Applicaiton\Fast.Template.Common.Applicaiton.csproj" />
+    <ProjectReference Include="..\..\..\Common\Fast.Template.Common.Permission\Fast.Template.Common.Permission.csproj" />
     <ProjectReference Include="..\Fast.Template.Basic.Application.Contracts\Fast.Template.Basic.Application.Contracts.csproj" />
     <ProjectReference Include="..\Fast.Template.Basic.Domain\Fast.Template.Basic.Domain.csproj" />
   </ItemGroup>
