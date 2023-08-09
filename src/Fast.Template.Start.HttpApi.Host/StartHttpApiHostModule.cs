@@ -64,10 +64,6 @@ public class StartHttpApiHostModule : AbpModule
         ConfigureDistributedLocking(context, configuration);
         ConfigureCors(context, configuration);
         ConfigureSwaggerServices(context, configuration);
-
-        Configure<MvcOptions>(option => {
-            option.Conventions.Add(new PermissionConvention());
-        });
     }
 
     private void ConfigureCache(IConfiguration configuration)

@@ -4,6 +4,7 @@ using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
 using Fast.Template.Common.Permission;
+using Fast.Template.Common.Utils.Attributes;
 
 namespace Fast.Template.Basic;
 
@@ -15,6 +16,7 @@ namespace Fast.Template.Basic;
     typeof(CommonPermissionModule)
     )]
 [Description("基础建设")]
+[Group("Basic")]
 public class BasicApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

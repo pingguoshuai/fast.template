@@ -43,14 +43,15 @@ namespace Fast.Template.Common.Permission
                                                         .Where(method => !method.IsSpecialName
                                                         && method.Name != nameof(GetType)
                                                         && method.Name != nameof(ToString)
+                                                        && method.Name != nameof(Equals)
                                                         && method.Name != nameof(GetHashCode)).ToList();
                     foreach (var action in actions)
                     {
                         var methodName = action.Name;
-                        var httpMethod = HttpMethodHelper.GetConventionalVerbForMethodName(methodName);
-                        var name = HttpMethodHelper.RemoveHttpMethodPrefix(methodName, httpMethod);
+                        //var httpMethod = HttpMethodHelper.GetConventionalVerbForMethodName(methodName);
+                        //var name = HttpMethodHelper.RemoveHttpMethodPrefix(methodName, httpMethod);
 
-                        permission.AddChild($"{groupName}.{serviceName}.{name}", L($"Permission:{name}"));
+                        permission.AddChild($"{groupName}.{serviceName}.{methodName}", L($"Permission:{methodName}"));
                     }
                 }
             }
