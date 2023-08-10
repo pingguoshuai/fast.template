@@ -81,6 +81,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.Basic.HttpApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fast.Template.Basic.HttpApi.Client", "modules\Basic\src\Fast.Template.Basic.HttpApi.Client\Fast.Template.Basic.HttpApi.Client.csproj", "{5B57AB0E-64F1-4F87-83F3-9DB98B48EDC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fast.Template.Common.Permission", "modules\Common\Fast.Template.Common.Permission\Fast.Template.Common.Permission.csproj", "{869EB33C-1622-4678-916C-4227DE11E930}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -219,6 +221,10 @@ Global
 		{5B57AB0E-64F1-4F87-83F3-9DB98B48EDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B57AB0E-64F1-4F87-83F3-9DB98B48EDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B57AB0E-64F1-4F87-83F3-9DB98B48EDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{869EB33C-1622-4678-916C-4227DE11E930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{869EB33C-1622-4678-916C-4227DE11E930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{869EB33C-1622-4678-916C-4227DE11E930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{869EB33C-1622-4678-916C-4227DE11E930}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -260,6 +266,7 @@ Global
 		{C0C55783-4877-42C3-A0E1-0149BA7B13E7} = {BB287C90-5837-40C7-8F1B-43BA169913C3}
 		{B85DBD9D-7780-4FBB-B580-CD1983B31820} = {BB287C90-5837-40C7-8F1B-43BA169913C3}
 		{5B57AB0E-64F1-4F87-83F3-9DB98B48EDC4} = {BB287C90-5837-40C7-8F1B-43BA169913C3}
+		{869EB33C-1622-4678-916C-4227DE11E930} = {16937A11-C72E-43E5-976D-1E08254F2A33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

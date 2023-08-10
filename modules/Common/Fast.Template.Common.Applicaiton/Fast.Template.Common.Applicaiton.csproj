@@ -7,8 +7,16 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.2.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.2.3" />
   </ItemGroup>
 
   <ItemGroup>

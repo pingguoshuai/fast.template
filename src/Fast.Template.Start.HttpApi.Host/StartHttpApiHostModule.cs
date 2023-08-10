@@ -34,6 +34,8 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Reflection;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Fast.Template.Start;
 
 [DependsOn(

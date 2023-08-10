@@ -8,7 +8,7 @@ public class IdsAdminPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(IdsAdminPermissions.GroupName, L("Permission:IdsAdmin"));
+        //var myGroup = context.AddGroup(IdsAdminPermissions.GroupName, L("Permission:IdsAdmin"));
     }
 
     private static LocalizableString L(string name)
