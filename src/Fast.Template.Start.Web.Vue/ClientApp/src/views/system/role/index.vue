@@ -31,12 +31,19 @@
 						<el-icon color="red" :size="20" v-else><ele-CircleCloseFilled /></el-icon>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column label="操作" width="200">
 					<template #default="scope">
-						<el-button :disabled="scope.row.isStatic" size="small" text type="primary" @click="onOpenEdit(scope.row)">修改</el-button>
+						<el-tooltip class="box-item" effect="dark" content="权限" placement="top-start">
+							<el-button type="primary" :icon="Lock" circle size="small" @click="onOpenRole(scope.row)" />
+						</el-tooltip>
+						<!-- <el-button :disabled="scope.row.isStatic" size="small" text type="primary" @click="onOpenEdit(scope.row)">修改</el-button> -->
+						<el-tooltip class="box-item" effect="dark" content="编辑" placement="top-start">
+							<el-button :disabled="scope.row.isStatic" type="primary" :icon="Edit" circle size="small" @click="onOpenEdit(scope.row)" />
+						</el-tooltip>
 						<el-popconfirm title="确定删除吗?" @confirm="onDel(scope.row.id)">
 							<template #reference>
-								<el-button :disabled="scope.row.isStatic" size="small" text type="primary">删除</el-button>
+								<!-- <el-button :disabled="scope.row.isStatic" size="small" text type="primary">删除</el-button> -->
+								<el-button :disabled="scope.row.isStatic" type="danger" :icon="Delete" circle size="small" />
 							</template>
 						</el-popconfirm>
 					</template>
@@ -57,13 +64,17 @@
 			</el-pagination>
 		</el-card>
 		<Add ref="addRef" :after-submit="getData" />
-		<!-- <EditRole ref="editRoleRef" /> -->
+		<EditRole ref="editRoleRef" />
+		<Permission ref="permissionRef" />
 	</div>
 </template>
 
 <script setup lang="ts">
+import { Edit, Delete, User, Lock, Tickets } from '@element-plus/icons-vue';
 import { onMounted, reactive, ref } from 'vue';
 import Add from '/@/views/system/role/component/add.vue';
+import EditRole from '/@/views/system/role/component/editRole.vue';
+import Permission from '/@/views/system/role/component/permission.vue';
 import { roleService } from '/@/api/system/role';
 import { roleDto } from '/@/types/api/system/role';
 import { PageResult } from '/@/types/base/pageresult';
@@ -71,6 +82,8 @@ import { PageRequestQuery } from '/@/types/base/querybase';
 import { ElMessage } from 'element-plus';
 
 const addRef = ref();
+const editRoleRef = ref();
+const permissionRef = ref();
 
 const state = reactive({
 	queryParam: new PageRequestQuery(),
@@ -85,6 +98,11 @@ const onOpenAdd = () => {
 
 const onOpenEdit = (row: roleDto) => {
 	addRef.value.openEdit(row.id);
+};
+
+const onOpenRole = (row: roleDto) => {
+	// editRoleRef.value.openDialog(row);
+	permissionRef.value.open();
 };
 
 const onDel = async (row: roleDto) => {
