@@ -3,7 +3,7 @@ export interface UpdatePermissionDto {
     IsGranted: boolean;
 }
 
-export interface GetPermissionListResultDto {
+export class GetPermissionListResultDto {
     entityDisplayName: string;
     groups: PermissionGroupDto[];
 }
@@ -11,14 +11,14 @@ export interface GetPermissionListResultDto {
 export interface PermissionGroupDto {
     name: string;
     displayName: string;
-    dispalyNameKey: string;
-    dispalyNameResource: string;
+    displayNameKey: string;
+    displayNameResource: string;
     permissions: PermissionGrantInfoDto[];
 }
 
 export interface PermissionGrantInfoDto {
     name: string;
-    dispalyName: string;
+    displayName: string;
     parentName: string;
     isGranted: boolean;
     allowedProviders: string[];
