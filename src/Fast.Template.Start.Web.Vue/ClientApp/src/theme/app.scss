@@ -253,7 +253,7 @@ body,
 
 /* 外边距、内边距全局样式
 ------------------------------- */
-@for $i from 1 through 35 {
+@for $i from 0 through 35 {
 	.mt#{$i} {
 		margin-top: #{$i}px !important;
 	}
@@ -277,5 +277,8 @@ body,
 	}
 	.pl#{$i} {
 		padding-left: #{$i}px !important;
+	}
+	.p#{$i}{
+		padding: #{$i}px !important;
 	}
 }

@@ -14,6 +14,7 @@ export interface PermissionGroupDto {
     displayNameKey: string;
     displayNameResource: string;
     permissions: PermissionGrantInfoDto[];
+    isAllGranted: boolean;
 }
 
 export interface PermissionGrantInfoDto {

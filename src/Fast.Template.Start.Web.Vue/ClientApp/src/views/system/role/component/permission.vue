@@ -8,11 +8,17 @@
 			</span>
 		</template>
 		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="">
-			<el-tab-pane v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
+			<el-tab-pane class="pl30" v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
 				<!-- <el-tree ref="tree" :data="item.permissions" :props="defaultProps" empty-text="" show-checkbox highlight-current @node-click=""></el-tree> -->
+				<el-row :gutter="20" class="mb20">
+					<el-col :span="24" :offset="0">
+						<el-checkbox v-model="group.isAllGranted" label="全选" @change="checkboxAllChange(group)" size="large" />
+					</el-col>
+				</el-row>
+
 				<el-row :gutter="20">
 					<el-col v-for="item in group.permissions" :class="{ pl30: item.parentName }" :span="getSpan(item)">
-						<el-checkbox v-model="item.isGranted" :label="item.displayName" size="large" />
+						<el-checkbox v-model="item.isGranted" :label="item.displayName" @change="checkboxChange(item, group.permissions)" size="large" />
 					</el-col>
 				</el-row>
 			</el-tab-pane>
@@ -22,7 +28,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
 import { permissionService } from '/@/api/system/permission';
-import { GetPermissionListResultDto, PermissionGrantInfoDto } from '/@/api/system/permission/model';
+import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto } from '/@/api/system/permission/model';
 
 const service = new permissionService();
 const activeName = ref('first');
@@ -47,6 +53,37 @@ const open = (providerName: string, providerKey: string) => {
 };
 const getSpan = (item: PermissionGrantInfoDto) => {
 	return item.parentName ? 8 : 24;
+};
+
+// const isDisabled = () => {
+// 	return props
+// };
+
+const checkboxAllChange = (group: PermissionGroupDto) => {
+	console.log(group);
+};
+
+const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGrantInfoDto[]) => {
+	console.log(item.isGranted);
+	console.log(item.parentName);
+
+	//分组选中，子元素全部选中
+	if (!item.parentName && item.isGranted) {
+		permissions.forEach((element) => {
+			if (item.name == element.parentName) {
+				element.isGranted = true;
+			}
+		});
+	}
+
+	// 分组未选中，子元素全部不选中
+	if (!item.parentName && !item.isGranted) {
+		permissions.forEach((element) => {
+			if (item.name == element.parentName) {
+				element.isGranted = false;
+			}
+		});
+	}
 };
 
 const getData = async (providerName: string, providerKey: string) => {
