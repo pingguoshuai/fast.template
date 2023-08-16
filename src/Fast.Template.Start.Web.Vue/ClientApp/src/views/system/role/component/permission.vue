@@ -1,17 +1,16 @@
-、
 <template>
 	<el-dialog :title="state.title" v-model="state.isShow" width="70%" :before-close="closeDialog">
 		<span></span>
 		<template #footer>
 			<span>
 				<el-button @click="closeDialog">Cancel</el-button>
-				<el-button type="primary" @click="">OK</el-button>
+				<el-button type="primary" @click="updatePermissions">OK</el-button>
 			</span>
 		</template>
 		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="" class="demo-tabs">
-			<el-tab-pane class="pl30" v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
+			<el-tab-pane v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
 				<!-- <el-tree ref="tree" :data="item.permissions" :props="defaultProps" empty-text="" show-checkbox highlight-current @node-click=""></el-tree> -->
-				<el-row :gutter="20" class="mb20">
+				<el-row :gutter="20">
 					<el-col :span="24" :offset="0">
 						<el-checkbox v-model="group.IsAllGranted" label="全选" @change="checkboxAllChange(group)" size="large" />
 					</el-col>
@@ -19,7 +18,7 @@
 
 				<el-row :gutter="20">
 					<el-col v-for="item in group.permissions" :class="{ pl30: item.parentName }" :span="getSpan(item)">
-						<el-checkbox v-model="item.isGranted" :label="item.displayName" @change="checkboxChange(item, group.permissions)" size="large" />
+						<el-checkbox v-model="item.isGranted" :disabled="isDisabled(item)" :label="item.displayName" @change="checkboxChange(item, group.permissions)" size="large" />
 					</el-col>
 				</el-row>
 			</el-tab-pane>
@@ -29,7 +28,9 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue';
 import { permissionService } from '/@/api/system/permission';
-import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto } from '/@/api/system/permission/model';
+import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto, ProviderInfoDto } from '/@/api/system/permission/model';
+import { fa } from 'element-plus/es/locale';
+import { ElMessage, stepProps } from 'element-plus';
 
 const service = new permissionService();
 const activeName = ref('first');
@@ -37,6 +38,8 @@ const state = reactive({
 	isShow: false,
 	permissionDto: new GetPermissionListResultDto(),
 	title: 'permission',
+	currentProviderName: '',
+	currnetProviderKey: '',
 });
 
 const defaultProps = {
@@ -44,21 +47,28 @@ const defaultProps = {
 	label: 'displayName',
 };
 
-const closeDialog = () => {
-	state.isShow = false;
-};
-
 const open = (providerName: string, providerKey: string) => {
 	state.isShow = true;
+	state.currentProviderName = providerName;
+	state.currnetProviderKey = providerKey;
 	getData(providerName, providerKey);
 };
+
+const closeDialog = () => {
+	state.isShow = false;
+	state.permissionDto = new GetPermissionListResultDto();
+	state.title = 'permission';
+	state.currentProviderName = '';
+	state.currnetProviderKey = '';
+};
+
 const getSpan = (item: PermissionGrantInfoDto) => {
 	return item.parentName ? 8 : 24;
 };
 
-// const isDisabled = () => {
-// 	return props
-// };
+const isDisabled = (item: PermissionGrantInfoDto) => {
+	return item.isGranted && item.grantedProvides?.every((item2) => item2.providerName != state.currentProviderName);
+};
 
 const checkboxAllChange = (group: PermissionGroupDto) => {
 	// console.log(group);
@@ -87,6 +97,20 @@ const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGra
 	}
 };
 
+const updatePermissions = async () => {
+	const permissions: any = [];
+	state.permissionDto?.groups?.forEach((element: any) => {
+		if (element.permissions) {
+			permissions.push(...element.permissions);
+		}
+	});
+
+	await service.updateAsync(state.currentProviderName, state.currnetProviderKey, permissions);
+
+	ElMessage.success('操作成功');
+	closeDialog();
+};
+
 const getData = async (providerName: string, providerKey: string) => {
 	const { data } = await service.getAsync(providerName, providerKey);
 
@@ -104,7 +128,7 @@ defineExpose({ open, closeDialog });
 </script>
 <style>
 .demo-tabs > .el-tabs__content {
-	padding: 32px;
+	padding: 5px 32px;
 	color: #6b778c;
 	font-size: 32px;
 	font-weight: 600;

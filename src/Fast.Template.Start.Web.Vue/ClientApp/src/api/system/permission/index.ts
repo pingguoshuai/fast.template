@@ -1,7 +1,7 @@
 import { AxiosPromise } from "axios";
 import { apiConfig } from "/@/config";
 import request from "/@/utils/request";
-import { GetPermissionListResultDto, PermissionGroupDto, UpdatePermissionDto } from "./model";
+import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto, UpdatePermissionDto } from "./model";
 
 export class permissionService {
     getAsync(providerName: string, providerKey: string): AxiosPromise<GetPermissionListResultDto> {
@@ -18,11 +18,11 @@ export class permissionService {
             return res;
         });
     };
-    updateAsync(providerName: string, providerKey: string, input: UpdatePermissionDto[]) {
+    updateAsync(providerName: string, providerKey: string, input: PermissionGrantInfoDto[]) {
         return request({
             url: `/api/permission-management/permissions?providerName=${providerName}&providerKey=${providerKey}`,
             method: 'PUT',
-            data: input,
+            data: { permissions: input },
             baseURL: apiConfig.BaseUrl
         });
     }
