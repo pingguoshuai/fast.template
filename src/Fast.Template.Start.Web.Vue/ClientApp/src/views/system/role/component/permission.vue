@@ -1,3 +1,4 @@
+、
 <template>
 	<el-dialog :title="state.title" v-model="state.isShow" width="70%" :before-close="closeDialog">
 		<span></span>
@@ -7,12 +8,12 @@
 				<el-button type="primary" @click="">OK</el-button>
 			</span>
 		</template>
-		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="">
+		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="" class="demo-tabs">
 			<el-tab-pane class="pl30" v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
 				<!-- <el-tree ref="tree" :data="item.permissions" :props="defaultProps" empty-text="" show-checkbox highlight-current @node-click=""></el-tree> -->
 				<el-row :gutter="20" class="mb20">
 					<el-col :span="24" :offset="0">
-						<el-checkbox v-model="group.isAllGranted" label="全选" @change="checkboxAllChange(group)" size="large" />
+						<el-checkbox v-model="group.IsAllGranted" label="全选" @change="checkboxAllChange(group)" size="large" />
 					</el-col>
 				</el-row>
 
@@ -60,7 +61,7 @@ const getSpan = (item: PermissionGrantInfoDto) => {
 // };
 
 const checkboxAllChange = (group: PermissionGroupDto) => {
-	console.log(group);
+	// console.log(group);
 };
 
 const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGrantInfoDto[]) => {
@@ -88,10 +89,11 @@ const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGra
 
 const getData = async (providerName: string, providerKey: string) => {
 	const { data } = await service.getAsync(providerName, providerKey);
+
 	state.permissionDto = data;
 	state.title = 'permission-' + providerKey;
 	activeName.value = data.groups.length > 0 ? data.groups[0].displayNameKey : '';
-	console.log(data);
+	console.log(state.permissionDto);
 };
 
 onMounted(() => {
@@ -100,3 +102,16 @@ onMounted(() => {
 
 defineExpose({ open, closeDialog });
 </script>
+<style>
+.demo-tabs > .el-tabs__content {
+	padding: 32px;
+	color: #6b778c;
+	font-size: 32px;
+	font-weight: 600;
+}
+
+.el-tabs--right .el-tabs__content,
+.el-tabs--left .el-tabs__content {
+	height: 100%;
+}
+</style>

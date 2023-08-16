@@ -8,13 +8,29 @@ export class GetPermissionListResultDto {
     groups: PermissionGroupDto[];
 }
 
-export interface PermissionGroupDto {
+export class PermissionGroupDto {
     name: string;
     displayName: string;
     displayNameKey: string;
     displayNameResource: string;
     permissions: PermissionGrantInfoDto[];
-    isAllGranted: boolean;
+    // isAllGranted: boolean = true;
+
+    private _isAllGranted: boolean;
+
+    public get IsAllGranted(): boolean {
+        // console.log(111111);
+        this._isAllGranted = this.permissions.every((item) => item.isGranted);
+        return this._isAllGranted;
+    }
+
+    public set IsAllGranted(value: boolean) {
+        console.log(111111);
+        this._isAllGranted = value;
+        this.permissions.forEach((item) => {
+            item.isGranted = value;
+        })
+    }
 }
 
 export interface PermissionGrantInfoDto {
