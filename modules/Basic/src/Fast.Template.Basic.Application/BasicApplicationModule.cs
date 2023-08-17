@@ -12,8 +12,7 @@ namespace Fast.Template.Basic;
     typeof(BasicDomainModule),
     typeof(BasicApplicationContractsModule),
     typeof(AbpDddApplicationModule),
-    typeof(AbpAutoMapperModule),
-    typeof(CommonPermissionModule)
+    typeof(AbpAutoMapperModule)
     )]
 [Description("基础建设")]
 [Group("Basic")]
