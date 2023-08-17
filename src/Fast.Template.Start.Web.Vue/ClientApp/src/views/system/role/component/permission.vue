@@ -29,7 +29,6 @@
 import { onMounted, reactive, ref } from 'vue';
 import { permissionService } from '/@/api/system/permission';
 import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto, ProviderInfoDto } from '/@/api/system/permission/model';
-import { fa } from 'element-plus/es/locale';
 import { ElMessage, stepProps } from 'element-plus';
 
 const service = new permissionService();
