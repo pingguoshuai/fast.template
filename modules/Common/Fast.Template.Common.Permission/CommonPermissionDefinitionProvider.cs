@@ -6,7 +6,6 @@ using System.Reflection;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Authorization.Permissions;
-using Volo.Abp.Http;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 

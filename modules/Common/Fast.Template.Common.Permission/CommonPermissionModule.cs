@@ -1,22 +1,14 @@
 ﻿using Fast.Template.Common.Permission.Localization;
-using System;
-using System.Threading.Tasks;
-using Volo.Abp.Application;
-using Volo.Abp.Authorization;
-using Volo.Abp.Authorization.Localization;
-using Volo.Abp.Http;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.Validation;
-using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
 namespace Fast.Template.Common.Permission
 {
     [DependsOn(
-        typeof(AbpDddApplicationModule),
-        typeof(AbpHttpModule),
-        typeof(AbpAuthorizationModule),
+        //typeof(AbpDddApplicationModule),
+        //typeof(AbpHttpModule),
+        //typeof(AbpAuthorizationModule),
         typeof(AbpLocalizationModule)
             )]
     public class CommonPermissionModule : AbpModule
@@ -32,9 +24,14 @@ namespace Fast.Template.Common.Permission
             {
                 options.Resources
                     .Add<CommonPermissionResource>("en")
-                    .AddBaseTypes(typeof(AbpValidationResource))
+                    //.AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/Permission");
             });
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.DefaultResourceType = typeof(CommonPermissionResource);
+            });
+
         }
     }
 }
