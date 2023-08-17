@@ -16,8 +16,7 @@ namespace Fast.Template.IdsAdmin;
     typeof(IdsAdminApplicationContractsModule),
     typeof(AbpDddApplicationModule),
     typeof(AbpAutoMapperModule),
-    typeof(CommonApplicationModule),
-    typeof(CommonPermissionModule)
+    typeof(CommonApplicationModule)
     )]
 [Description("授权中心")]
 [Group("IdsAdmin")]
