@@ -1,7 +1,8 @@
 {
   "culture": "en",
   "texts": {
-    "MyAccount":  "My account",
-    "SamplePageMessage": "A sample page for the Team module"
+    "MyAccount": "My account",
+    "SamplePageMessage": "A sample page for the Team module",
+    "Permission:IdsAdmin": "auth center"
   }
 }
