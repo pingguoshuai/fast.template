@@ -7,7 +7,6 @@ using Volo.Abp.Timing;
 using System.ComponentModel;
 using Fast.Template.Common.Applicaiton;
 using Fast.Template.Common.Utils.Attributes;
-using Fast.Template.Common.Permission;
 
 namespace Fast.Template.IdsAdmin;
 

@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
 using Volo.Abp.Application;
-using Fast.Template.Common.Permission;
 using Fast.Template.Common.Utils.Attributes;
 
 namespace Fast.Template.Basic;
