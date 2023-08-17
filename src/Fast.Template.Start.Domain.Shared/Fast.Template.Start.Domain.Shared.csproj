@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\modules\Basic\src\Fast.Template.Basic.Domain.Shared\Fast.Template.Basic.Domain.Shared.csproj" />
+    <ProjectReference Include="..\..\modules\Common\Fast.Template.Common.Permission\Fast.Template.Common.Permission.csproj" />
     <ProjectReference Include="..\..\modules\IdsAdmin\src\Fast.Template.IdsAdmin.Domain.Shared\Fast.Template.IdsAdmin.Domain.Shared.csproj" />
   </ItemGroup>
 

@@ -14,6 +14,8 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Fast.Template.Common.Permission;
+
 namespace Fast.Template.Start;
 
 [DependsOn(
@@ -26,7 +28,8 @@ namespace Fast.Template.Start;
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule),
     typeof(IdsAdminDomainSharedModule),
-    typeof(BasicDomainSharedModule)
+    typeof(BasicDomainSharedModule),
+    typeof(CommonPermissionModule)
         )]
 public class StartDomainSharedModule : AbpModule
 {

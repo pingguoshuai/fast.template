@@ -1,4 +1,5 @@
 ﻿using Fast.Template.Basic;
+using Fast.Template.Common.Permission;
 using Fast.Template.IdsAdmin;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;
