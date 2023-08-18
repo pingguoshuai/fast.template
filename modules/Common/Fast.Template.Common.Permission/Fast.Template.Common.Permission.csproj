@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Fast.Template.Common.Utils\Fast.Template.Common.Utils.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Include="Localization\Permission\*.json" />
+		<Content Remove="Localization\Permission\*.json" />
+	</ItemGroup>
 </Project>
