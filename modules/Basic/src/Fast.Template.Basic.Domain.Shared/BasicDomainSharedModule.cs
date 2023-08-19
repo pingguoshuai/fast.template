@@ -32,7 +32,7 @@ public class BasicDomainSharedModule : AbpModule
 
             options.Resources
                 .Get<CommonPermissionResource>()
-                .AddVirtualJson("/Localization/Permission");
+                .AddVirtualJson("/Localization/BasicPermission");
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>

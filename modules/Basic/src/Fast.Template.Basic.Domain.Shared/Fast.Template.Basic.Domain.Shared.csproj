@@ -23,13 +23,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Localization\Permission\en.json" />
-    <None Remove="Localization\Permission\zh-Hans.json" />
+    <None Remove="Localization\BasicPermission\en.json" />
+    <None Remove="Localization\BasicPermission\zh-Hans.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Localization\Permission\en.json" />
-    <EmbeddedResource Include="Localization\Permission\zh-Hans.json" />
+    <EmbeddedResource Include="Localization\BasicPermission\en.json" />
+    <EmbeddedResource Include="Localization\BasicPermission\zh-Hans.json" />
   </ItemGroup>
 
   <ItemGroup>

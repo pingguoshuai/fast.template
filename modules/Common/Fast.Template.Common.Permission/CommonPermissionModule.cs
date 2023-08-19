@@ -1,6 +1,7 @@
 ﻿using Fast.Template.Common.Permission.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
 namespace Fast.Template.Common.Permission
