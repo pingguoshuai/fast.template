@@ -22,4 +22,18 @@
     <Content Remove="Localization\Basic\*.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Localization\Permission\en.json" />
+    <None Remove="Localization\Permission\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Permission\en.json" />
+    <EmbeddedResource Include="Localization\Permission\zh-Hans.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Fast.Template.Common.Permission\Fast.Template.Common.Permission.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,15 +1,18 @@
 ﻿using Volo.Abp.Modularity;
 using Volo.Abp.Localization;
 using Fast.Template.Basic.Localization;
+using Fast.Template.Common.Permission.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Validation;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Fast.Template.Common.Permission;
 
 namespace Fast.Template.Basic;
 
 [DependsOn(
-    typeof(AbpValidationModule)
+    typeof(AbpValidationModule),
+    typeof(CommonPermissionModule)
 )]
 public class BasicDomainSharedModule : AbpModule
 {
@@ -26,6 +29,10 @@ public class BasicDomainSharedModule : AbpModule
                 .Add<BasicResource>("en")
                 .AddBaseTypes(typeof(AbpValidationResource))
                 .AddVirtualJson("/Localization/Basic");
+
+            options.Resources
+                .Get<CommonPermissionResource>()
+                .AddVirtualJson("/Localization/Permission");
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>

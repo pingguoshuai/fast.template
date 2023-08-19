@@ -3,7 +3,10 @@
   "texts": {
     "MyAccount": "我的账户",
     "SamplePageMessage": "Team模块的示例页面",
-    "Permission:IdsAdmin": "授权中心",
-    "Permission:UpdateAsync": "编辑"
+    "Permission:GetAsync": "详情",
+    "Permission:UpdateAsync": "编辑",
+    "Permission:DeleteAsync": "删除",
+    "Permission:GetListAsync": "列表",
+    "Permission:GetItemAsync": "获取选项"
   }
 }
