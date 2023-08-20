@@ -46,7 +46,7 @@ namespace Fast.Template.Common.Permission
                                                         && method.Name != nameof(GetHashCode)).ToList();
                     foreach (var action in actions)
                     {
-                        var methodName = action.Name;
+                        var methodName = action.Name.RemovePostFix("Async");
                         //var httpMethod = HttpMethodHelper.GetConventionalVerbForMethodName(methodName);
                         //var name = HttpMethodHelper.RemoveHttpMethodPrefix(methodName, httpMethod);
 

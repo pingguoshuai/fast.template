@@ -3,10 +3,17 @@
   "texts": {
     "MyAccount": "我的账户",
     "SamplePageMessage": "Team模块的示例页面",
+    "Permission:CreateAsync": "创建",
     "Permission:UpdateAsync": "编辑",
     "Permission:GetAsync": "详情",
     "Permission:DeleteAsync": "删除",
     "Permission:GetListAsync": "列表",
-    "Permission:GetItemAsync": "获取选项"
+    "Permission:GetItemsAsync": "获取选项",
+    "Permission:Create": "编辑",
+    "Permission:Update": "编辑",
+    "Permission:Get": "详情",
+    "Permission:Delete": "删除",
+    "Permission:GetList": "列表",
+    "Permission:GetItems": "获取选项"
   }
 }

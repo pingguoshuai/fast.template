@@ -1,6 +1,29 @@
 {
   "culture": "zh-Hans",
   "texts": {
-    "Permission:Basic": "通用模块管理"
+    "Permission:IdsAdmin": "授权中心管理",
+    "Permission:IdentityResource": "身份资源管理",
+    "Permission:GetProperties": "属性列表",
+    "Permission:PostAddPropery": "编辑属性",
+    "Permission:DeleteRemovePropery": "删除属性",
+    "Permission:Config": "常量配置管理",
+    "Permission:GetStandardClaims": "常规声明",
+    "Permission:GetSigningAlgorithms": "签名算法",
+    "Permission:GetHashTypes": "哈希类型",
+    "Permission:GetAccessTokenTypes": "访问令牌类型",
+    "Permission:GetTokenUsages": "刷新令牌使用情况",
+    "Permission:GetTokenExpirations": "刷新令牌过期",
+    "Permission:GetSecretTypes": "加密类型",
+    "Permission:GetGrantTypes": "授权类型",
+    "Permission:GetScopes": "可使用的作用域",
+    "Permission:Client": "客户端管理",
+    "Permission:GetSecrets": "密钥列表",
+    "Permission:PostAddSecret": "编辑密钥",
+    "Permission:DeleteRemoveSecret": "删除密钥",
+    "Permission:GetClaims": "声明列表",
+    "Permission:PostAddClaim": "编辑声明",
+    "Permission:DeleteRemoveClaim": "删除声明",
+    "Permission:ApiScope": "作用域管理",
+    "Permission:ApiResource": "Api资源管理"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "culture": "zh-Hans",
+  "texts": {
+    "Permission:Basic": "通用模块管理",
+    "Permission:DicType": "字典类型管理",
+    "Permission:Dicinfo": "字典信息管理"
+  }
+}
