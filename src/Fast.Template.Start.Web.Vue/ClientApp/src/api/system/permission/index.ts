@@ -9,13 +9,6 @@ export class permissionService {
             url: `/api/permission-management/permissions?providerName=${providerName}&providerKey=${providerKey}`,
             method: 'GET',
             baseURL: apiConfig.BaseUrl
-        }).then((res) => {
-            for (var i = 0, len = res.data.groups.length; i < len; i++) {
-                // res.data.groups[i].IsAllGranted = res.data.groups[i].permissions.every((item: any) => item.isGranted);
-                res.data.groups[i] = Object.assign(new PermissionGroupDto(), res.data.groups[i]);
-            }
-            console.log(res)
-            return res;
         });
     };
     updateAsync(providerName: string, providerKey: string, input: PermissionGrantInfoDto[]) {

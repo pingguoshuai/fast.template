@@ -46,6 +46,9 @@
 						<el-tooltip class="box-item" effect="dark" content="声明" placement="top-start">
 							<el-button :disabled="scope.row.userName === 'admin'" type="primary" :icon="Tickets" circle size="small" @click="onOpenClaim(scope.row)" />
 						</el-tooltip>
+						<el-tooltip class="box-item" effect="dark" content="权限" placement="top-start">
+							<el-button type="primary" :icon="Lock" circle size="small" @click="onOpenPermission(scope.row)" />
+						</el-tooltip>
 						<el-tooltip class="box-item" effect="dark" content="角色" placement="top-start">
 							<el-button :disabled="scope.row.userName === 'admin'" type="primary" :icon="User" circle size="small" @click="onOpenRole(scope.row)" />
 						</el-tooltip>
@@ -77,6 +80,7 @@
 		<AddUer ref="addRef" :after-submit="getData" />
 		<Claim ref="claimRef" />
 		<Role ref="roleRef" />
+		<Permission ref="permissionRef" />
 	</div>
 </template>
 
@@ -88,6 +92,7 @@ import { formatDate } from '/@/utils';
 import AddUer from '/@/views/system/user/component/add.vue';
 import Claim from '/@/views/system/user/component/claim.vue';
 import Role from '/@/views/system/user/component/role.vue';
+import Permission from '/@/views/system/role/component/permission.vue';
 import { PageRequestQuery } from '/@/types/base/querybase';
 import { PageResult } from '/@/types/base/pageresult';
 import { identityUserDto } from '/@/types/api/system/user/identityuser';
@@ -96,6 +101,7 @@ import { userService } from '/@/api/system/identityuser';
 const addRef = ref();
 const claimRef = ref();
 const roleRef = ref();
+const permissionRef = ref();
 
 const state = reactive({
 	queryParam: new PageRequestQuery(),
@@ -129,6 +135,10 @@ const onOpenClaim = (row: identityUserDto) => {
 
 const onOpenRole = (row: identityUserDto) => {
 	roleRef.value.open(row.id);
+};
+
+const onOpenPermission = (row: identityUserDto) => {
+	permissionRef.value.open('U', row.id, row.userName);
 };
 
 // 分页改变

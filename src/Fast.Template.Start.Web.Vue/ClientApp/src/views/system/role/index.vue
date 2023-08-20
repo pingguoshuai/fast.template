@@ -102,7 +102,7 @@ const onOpenEdit = (row: roleDto) => {
 
 const onOpenRole = (row: roleDto) => {
 	// editRoleRef.value.openDialog(row);
-	permissionRef.value.open('R', row.name);
+	permissionRef.value.open('R', row.name, row.name);
 };
 
 const onDel = async (row: roleDto) => {

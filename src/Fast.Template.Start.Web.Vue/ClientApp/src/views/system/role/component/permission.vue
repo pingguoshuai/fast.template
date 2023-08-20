@@ -7,20 +7,22 @@
 				<el-button type="primary" @click="updatePermissions">OK</el-button>
 			</span>
 		</template>
-		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="" class="demo-tabs">
+		<el-tabs v-model="activeName" type="card" tab-position="left" @tab-click="tabChange" class="demo-tabs">
 			<el-tab-pane v-for="group in state.permissionDto.groups" :key="group.displayNameKey" :label="group.displayNameKey" :name="group.displayNameKey">
-				<!-- <el-tree ref="tree" :data="item.permissions" :props="defaultProps" empty-text="" show-checkbox highlight-current @node-click=""></el-tree> -->
-				<el-row :gutter="20">
-					<el-col :span="24" :offset="0">
-						<el-checkbox v-model="group.IsAllGranted" label="全选" @change="checkboxAllChange(group)" size="large" />
-					</el-col>
-				</el-row>
+				<el-scrollbar height="600px">
+					<!-- <el-tree ref="tree" :data="item.permissions" :props="defaultProps" empty-text="" show-checkbox highlight-current @node-click=""></el-tree> -->
+					<el-row>
+						<el-col :span="24" :offset="0">
+							<el-checkbox v-model="state.IsAllGranted" label="全选" @change="checkboxTabAllChange(group)" size="large" />
+						</el-col>
+					</el-row>
 
-				<el-row :gutter="20">
-					<el-col v-for="item in group.permissions" :class="{ pl30: item.parentName }" :span="getSpan(item)">
-						<el-checkbox v-model="item.isGranted" :disabled="isDisabled(item)" :label="item.displayName" @change="checkboxChange(item, group.permissions)" size="large" />
-					</el-col>
-				</el-row>
+					<el-row>
+						<el-col v-for="item in group.permissions" :class="{ pl30: item.parentName }" :span="getSpan(item)">
+							<el-checkbox v-model="item.isGranted" :disabled="isGrantedByOtherProviderName(item)" :label="item.displayName" @change="checkboxChange(group, item, group.permissions)" size="large" />
+						</el-col>
+					</el-row>
+				</el-scrollbar>
 			</el-tab-pane>
 		</el-tabs>
 	</el-dialog>
@@ -29,7 +31,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import { permissionService } from '/@/api/system/permission';
 import { GetPermissionListResultDto, PermissionGrantInfoDto, PermissionGroupDto, ProviderInfoDto } from '/@/api/system/permission/model';
-import { ElMessage, stepProps } from 'element-plus';
+import { ElMessage, imageEmits, stepProps } from 'element-plus';
 
 const service = new permissionService();
 const activeName = ref('first');
@@ -39,18 +41,17 @@ const state = reactive({
 	title: 'permission',
 	currentProviderName: '',
 	currnetProviderKey: '',
+	currnetProviderKeyDisplayName: '',
+	IsAllGranted: false,
 });
 
-const defaultProps = {
-	children: 'children',
-	label: 'displayName',
-};
+const selectGroup = ref<PermissionGroupDto>();
 
-const open = (providerName: string, providerKey: string) => {
+const open = (providerName: string, providerKey: string, displayName: string) => {
 	state.isShow = true;
 	state.currentProviderName = providerName;
 	state.currnetProviderKey = providerKey;
-	getData(providerName, providerKey);
+	getData(providerName, providerKey, displayName);
 };
 
 const closeDialog = () => {
@@ -62,21 +63,39 @@ const closeDialog = () => {
 };
 
 const getSpan = (item: PermissionGrantInfoDto) => {
-	return item.parentName ? 8 : 24;
+	return item.parentName ? 12 : 24;
 };
 
-const isDisabled = (item: PermissionGrantInfoDto) => {
-	return item.isGranted && item.grantedProvides?.every((item2) => item2.providerName != state.currentProviderName);
+// const IsAllGranted = (item: PermissionGrantInfoDto) => {
+// 	return item.isGranted;
+// };
+
+const tabChange = (tab: any, event: any) => {
+	setTabCheckBoxState(state.permissionDto.groups[tab.index]);
 };
 
-const checkboxAllChange = (group: PermissionGroupDto) => {
+const setTabCheckBoxState = (group: PermissionGroupDto) => {
+	state.IsAllGranted = group.permissions.every((element) => element.isGranted);
+};
+
+const isGrantedByOtherProviderName = (item: PermissionGrantInfoDto) => {
+	if (item.grantedProviders.length) {
+		return item.grantedProviders.findIndex((p) => p.providerName !== state.currentProviderName) > -1;
+	}
+	return false;
+};
+
+const checkboxTabAllChange = (group: PermissionGroupDto) => {
 	// console.log(group);
+	group.permissions.forEach((element) => {
+		if (element.isGranted && isGrantedByOtherProviderName(element)) {
+			return;
+		}
+		element.isGranted = state.IsAllGranted;
+	});
 };
 
-const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGrantInfoDto[]) => {
-	console.log(item.isGranted);
-	console.log(item.parentName);
-
+const checkboxChange = (group: PermissionGroupDto, item: PermissionGrantInfoDto, permissions: PermissionGrantInfoDto[]) => {
 	//分组选中，子元素全部选中
 	if (!item.parentName && item.isGranted) {
 		permissions.forEach((element) => {
@@ -94,6 +113,7 @@ const checkboxChange = (item: PermissionGrantInfoDto, permissions: PermissionGra
 			}
 		});
 	}
+	setTabCheckBoxState(group);
 };
 
 const updatePermissions = async () => {
@@ -110,13 +130,13 @@ const updatePermissions = async () => {
 	closeDialog();
 };
 
-const getData = async (providerName: string, providerKey: string) => {
+const getData = async (providerName: string, providerKey: string, displayName: string) => {
 	const { data } = await service.getAsync(providerName, providerKey);
 
 	state.permissionDto = data;
-	state.title = 'permission-' + providerKey;
+	state.title = 'permission-' + displayName;
 	activeName.value = data.groups.length > 0 ? data.groups[0].displayNameKey : '';
-	console.log(state.permissionDto);
+	selectGroup.value = data.groups[0];
 };
 
 onMounted(() => {
