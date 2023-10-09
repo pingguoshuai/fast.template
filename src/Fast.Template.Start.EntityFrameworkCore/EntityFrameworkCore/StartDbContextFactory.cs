@@ -17,7 +17,7 @@ public class StartDbContextFactory : IDesignTimeDbContextFactory<StartDbContext>
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<StartDbContext>()
-            .UseMySql(configuration.GetConnectionString("Default"), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString("Default"));
 
         return new StartDbContext(builder.Options);
     }

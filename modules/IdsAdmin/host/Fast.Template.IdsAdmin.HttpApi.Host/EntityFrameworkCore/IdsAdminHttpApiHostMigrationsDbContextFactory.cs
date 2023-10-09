@@ -12,7 +12,7 @@ public class IdsAdminHttpApiHostMigrationsDbContextFactory : IDesignTimeDbContex
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<IdsAdminHttpApiHostMigrationsDbContext>()
-            .UseMySql(configuration.GetConnectionString("IdsAdmin"), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString("IdsAdmin"), MySqlServerVersion.LatestSupportedServerVersion);
 
         return new IdsAdminHttpApiHostMigrationsDbContext(builder.Options);
     }

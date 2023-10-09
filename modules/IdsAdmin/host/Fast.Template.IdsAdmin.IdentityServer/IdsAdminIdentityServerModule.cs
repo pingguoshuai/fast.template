@@ -95,7 +95,7 @@ public class IdsAdminIdentityServerModule : AbpModule
 
         Configure<AbpDbContextOptions>(options =>
         {
-            options.UseMySQL();
+            options.UseNpgsql();
         });
 
         context.Services.AddAbpSwaggerGen(

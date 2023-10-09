@@ -58,7 +58,7 @@ public class IdsAdminHttpApiHostModule : AbpModule
 
         Configure<AbpDbContextOptions>(options =>
         {
-            options.UseMySQL();
+            options.UseNpgsql();
         });
 
         Configure<AbpMultiTenancyOptions>(options =>

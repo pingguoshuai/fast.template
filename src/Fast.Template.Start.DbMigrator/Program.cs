@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ class Program
             .WriteTo.Async(c => c.Console())
             .CreateLogger();
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
         await CreateHostBuilder(args).RunConsoleAsync();
     }
 

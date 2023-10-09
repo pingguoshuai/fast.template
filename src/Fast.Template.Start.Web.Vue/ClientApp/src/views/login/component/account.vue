@@ -73,8 +73,8 @@ export default defineComponent({
 			isShowPassword: false,
 			ruleForm: {
 				username: 'admin',
-				// password: '1q2w3E*',
-				password: '111111',
+				password: '1q2w3E*',
+				// password: '111111',
 				grant_type: 'password',
 				client_id: 'Start_App',
 				client_secret: '1q2w3e*',
