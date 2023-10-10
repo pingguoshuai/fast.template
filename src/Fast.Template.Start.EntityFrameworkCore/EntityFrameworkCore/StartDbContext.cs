@@ -59,6 +59,15 @@ public class StartDbContext :
 
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLowerCaseNamingConvention();//FullName变成fullname
+        //optionsBuilder.UseSnakeCaseNamingConvention();//FullName变成full_name
+        //optionsBuilder.UseCamelCaseNamingConvention();//FullName变成fullName
+        //optionsBuilder.UseUpperCaseNamingConvention();//FullName变成FULLNAME
+        base.OnConfiguring(optionsBuilder);
+    }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
