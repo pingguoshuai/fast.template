@@ -12,6 +12,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Fast.Template.IdsAdmin.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using static Fast.Template.Start.EntityFrameworkCore.StartDbContext;
 
 namespace Fast.Template.Start.EntityFrameworkCore;
 
@@ -51,6 +53,10 @@ public class StartEntityFrameworkCoreModule : AbpModule
             /* The main point to change your DBMS.
              * See also StartMigrationsDbContextFactory for EF Core tooling. */
             options.UseNpgsql();
+
+            options.PreConfigure(a => {
+                a.DbContextOptions.ReplaceService<ISqlGenerationHelper, RivenPostgreSqlGenerationHelper>();
+            });
         });
 
     }

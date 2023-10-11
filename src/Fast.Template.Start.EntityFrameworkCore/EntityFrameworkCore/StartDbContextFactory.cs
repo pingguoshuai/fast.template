@@ -2,7 +2,9 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using static Fast.Template.Start.EntityFrameworkCore.StartDbContext;
 
 namespace Fast.Template.Start.EntityFrameworkCore;
 
@@ -17,7 +19,7 @@ public class StartDbContextFactory : IDesignTimeDbContextFactory<StartDbContext>
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<StartDbContext>()
-            .UseNpgsql(configuration.GetConnectionString("Default"));
+            .UseNpgsql(configuration.GetConnectionString("Default")).ReplaceService<ISqlGenerationHelper, RivenPostgreSqlGenerationHelper>();
 
         return new StartDbContext(builder.Options);
     }
