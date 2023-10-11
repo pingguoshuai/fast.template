@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Fast.Template.Basic.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -59,15 +60,6 @@ public class StartDbContext :
 
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseLowerCaseNamingConvention();//FullName变成fullname
-        //optionsBuilder.UseSnakeCaseNamingConvention();//FullName变成full_name
-        //optionsBuilder.UseCamelCaseNamingConvention();//FullName变成fullName
-        //optionsBuilder.UseUpperCaseNamingConvention();//FullName变成FULLNAME
-        base.OnConfiguring(optionsBuilder);
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -82,6 +74,7 @@ public class StartDbContext :
         builder.ConfigureIdentityServer();
         builder.ConfigureFeatureManagement();
         builder.ConfigureTenantManagement();
+        builder.ConfigureBasic();
 
         /* Configure your own tables/entities inside here */
 
