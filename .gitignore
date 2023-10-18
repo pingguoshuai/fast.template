@@ -264,3 +264,4 @@ src/Fast.Template.Start.Blazor.Server.Tiered/Logs/*
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
 /.github
+/src/Fast.Template.Start.HttpApi.Host/Logs
