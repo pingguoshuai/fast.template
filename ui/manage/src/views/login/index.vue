@@ -1,5 +1,5 @@
 <template>
-	<div class="login-container flex">
+	<div class="login-container">
 		<div class="login-left">
 			<div class="login-left-logo">
 				<img :src="logoMini" />
@@ -8,15 +8,15 @@
 					<span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span>
 				</div>
 			</div>
-			<div class="login-left-img">
+			<!-- <div class="login-left-img">
 				<img :src="loginMain" />
 			</div>
-			<img :src="loginBg" class="login-left-waves" />
+			<img :src="loginBg" class="login-left-waves" /> -->
 		</div>
-		<div class="login-right flex">
+		<div class="login-right">
 			<div class="login-right-warp flex-margin">
-				<span class="login-right-warp-one"></span>
-				<span class="login-right-warp-two"></span>
+				<!-- <span class="login-right-warp-one"></span>
+				<span class="login-right-warp-two"></span> -->
 				<div class="login-right-warp-mian">
 					<div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }} 欢迎您！</div>
 					<div class="login-right-warp-main-form">
@@ -25,16 +25,16 @@
 								<el-tab-pane :label="$t('message.label.one1')" name="account">
 									<Account />
 								</el-tab-pane>
-								<el-tab-pane :label="$t('message.label.two2')" name="mobile">
+								<!-- <el-tab-pane :label="$t('message.label.two2')" name="mobile">
 									<Mobile />
-								</el-tab-pane>
+								</el-tab-pane> -->
 							</el-tabs>
 						</div>
-						<Scan v-if="state.isScan" />
-						<div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
+						<!-- <Scan v-if="state.isScan" /> -->
+						<!-- <div class="login-content-main-sacn" @click="state.isScan = !state.isScan">
 							<i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
 							<div class="login-content-main-sacn-delta"></div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -48,13 +48,13 @@ import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { NextLoading } from '/@/utils/loading';
 import logoMini from '/@/assets/logo-mini.svg';
-import loginMain from '/@/assets/login-main.svg';
-import loginBg from '/@/assets/login-bg.svg';
+// import loginMain from '/@/assets/login-main.svg';
+// import loginBg from '/@/assets/login-bg.svg';
 
 // 引入组件
 const Account = defineAsyncComponent(() => import('/@/views/login/component/account.vue'));
-const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'));
-const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vue'));
+// const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'));
+// const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vue'));
 
 // 定义变量内容
 const storesThemeConfig = useThemeConfig();
@@ -77,11 +77,12 @@ onMounted(() => {
 <style scoped lang="scss">
 .login-container {
 	height: 100%;
-	background: var(--el-color-white);
+	// background: var(--el-color-white);
+	background-color: #2d3a4b;
 	.login-left {
-		flex: 1;
-		position: relative;
-		background-color: rgba(211, 239, 255, 1);
+		// flex: 1;
+		// position: relative;
+		// background-color: rgba(211, 239, 255, 1);
 		margin-right: 100px;
 		.login-left-logo {
 			display: flex;
@@ -129,7 +130,9 @@ onMounted(() => {
 		}
 	}
 	.login-right {
-		width: 700px;
+		// width: 700px;
+		position: relative;
+		top: 160px;
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
 			border-radius: 3px;
