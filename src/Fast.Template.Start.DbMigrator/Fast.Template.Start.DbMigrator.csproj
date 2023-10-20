@@ -32,6 +32,7 @@
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Autofac" Version="7.4.0" />
     <ProjectReference Include="..\Fast.Template.Start.Application.Contracts\Fast.Template.Start.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Fast.Template.Start.Application\Fast.Template.Start.Application.csproj" />
     <ProjectReference Include="..\Fast.Template.Start.EntityFrameworkCore\Fast.Template.Start.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

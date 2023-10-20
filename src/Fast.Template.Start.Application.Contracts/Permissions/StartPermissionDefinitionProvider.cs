@@ -22,12 +22,12 @@ public class StartPermissionDefinitionProvider : PermissionDefinitionProvider
     {
         //var myGroup = context.AddGroup(StartPermissions.GroupName);
 
-        var myGroup = context.AddGroup(StartPermissions.GroupName, L("Permission:Start"));
+        //var myGroup = context.AddGroup(StartPermissions.GroupName, L("Permission:Start"));
 
-        var dicTypePermission = myGroup.AddPermission("Start.User.Default", L("Permission:User"));
-        dicTypePermission.AddChild("Start.User.Create", L("Permission:Create"));
-        dicTypePermission.AddChild("Start.User.Update", L("Permission:Update"));
-        dicTypePermission.AddChild("Start.User.Delete", L("Permission:Delete"));
+        //var dicTypePermission = myGroup.AddPermission("Start.User.Default", L("Permission:User"));
+        //dicTypePermission.AddChild("Start.User.Create", L("Permission:Create"));
+        //dicTypePermission.AddChild("Start.User.Update", L("Permission:Update"));
+        //dicTypePermission.AddChild("Start.User.Delete", L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

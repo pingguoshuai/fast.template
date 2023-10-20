@@ -7,7 +7,8 @@ namespace Fast.Template.Start.DbMigrator;
 [DependsOn(
     typeof(AbpAutofacModule),
     typeof(StartEntityFrameworkCoreModule),
-    typeof(StartApplicationContractsModule)
+    typeof(StartApplicationContractsModule),
+    typeof(StartApplicationModule)
     )]
 public class StartDbMigratorModule : AbpModule
 {
