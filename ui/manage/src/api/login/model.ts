@@ -7,3 +7,10 @@ export interface CreateLogin {
     scope: string;
     code: string;
 }
+
+export interface UserInfo {
+    name: string;
+    sub: string;
+    role: string[];
+    email: string;
+}

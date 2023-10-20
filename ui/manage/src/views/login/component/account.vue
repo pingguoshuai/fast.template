@@ -100,7 +100,7 @@ const currentTime = computed(() => {
 });
 // 登录
 const onSignIn = async () => {
-	const { access_token, token_type } = await useLoginApi().signIn(state.ruleForm);
+	const { access_token, token_type } = await useLoginApi.signIn(state.ruleForm);
 	const token = token_type + ' ' + access_token;
 	// 存储 token 到浏览器缓存
 	Session.set('token', token);
@@ -108,7 +108,7 @@ const onSignIn = async () => {
 
 	state.loading.signIn = true;
 	// 模拟数据，对接接口时，记得删除多余代码及对应依赖的引入。用于 `/src/stores/userInfo.ts` 中不同用户登录判断（模拟数据）
-	// Cookies.set('userName', state.ruleForm.userName);
+	Cookies.set('userName', state.ruleForm.username);
 	if (!themeConfig.value.isRequestRoutes) {
 		// 前端控制路由，2、请注意执行顺序
 		const isNoPower = await initFrontEndControlRoutes();
