@@ -1,3 +1,6 @@
+import { CreateLogin } from './model';
+import { apiConfig } from '/@/config';
+import { ContentTypeEnum } from '/@/enums/httpEnum';
 import request from '/@/utils/request';
 
 /**
@@ -9,18 +12,22 @@ import request from '/@/utils/request';
  */
 export function useLoginApi() {
 	return {
-		signIn: (data: object) => {
+		signIn: (data: CreateLogin) => {
 			return request({
-				url: '/user/signIn',
+				url: '/connect/token',
 				method: 'post',
 				data,
+				baseURL: apiConfig.AuthUrl,
+				headers: { 'Content-Type': ContentTypeEnum.FormUrlEncoded }
 			});
 		},
-		signOut: (data: object) => {
+		signOut: (data: CreateLogin) => {
 			return request({
-				url: '/user/signOut',
+				url: '/connect/token',
 				method: 'post',
 				data,
+				baseURL: apiConfig.AuthUrl,
+				headers: { 'Content-Type': ContentTypeEnum.FormUrlEncoded }
 			});
 		},
 	};

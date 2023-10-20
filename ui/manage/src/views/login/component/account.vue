@@ -1,7 +1,7 @@
 <template>
 	<el-form size="large" class="login-content-form">
 		<el-form-item class="login-animation1">
-			<el-input text :placeholder="$t('message.account.accountPlaceholder1')" v-model="state.ruleForm.userName" clearable autocomplete="off">
+			<el-input text :placeholder="$t('message.account.accountPlaceholder1')" v-model="state.ruleForm.username" clearable autocomplete="off">
 				<template #prefix>
 					<el-icon class="el-input__icon"><ele-User /></el-icon>
 				</template>
@@ -65,9 +65,11 @@ import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { initFrontEndControlRoutes } from '/@/router/frontEnd';
 import { initBackEndControlRoutes } from '/@/router/backEnd';
-import { Session } from '/@/utils/storage';
+import { Local, Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
 import { NextLoading } from '/@/utils/loading';
+import { useLoginApi } from '/@/api/login';
+import { CreateLogin } from '/@/api/login/model';
 
 // 定义变量内容
 const { t } = useI18n();
@@ -78,10 +80,15 @@ const router = useRouter();
 const state = reactive({
 	isShowPassword: false,
 	ruleForm: {
-		userName: 'admin',
-		password: '123456',
-		code: '1234',
-	},
+		username: 'admin',
+		password: '1q2w3E*',
+		// password: '111111',
+		grant_type: 'password',
+		client_id: 'Start_App',
+		client_secret: '1q2w3e*',
+		scope: 'Template profile phone email role openid',
+		code: '',
+	} as CreateLogin,
 	loading: {
 		signIn: false,
 	},
@@ -93,11 +100,15 @@ const currentTime = computed(() => {
 });
 // 登录
 const onSignIn = async () => {
-	state.loading.signIn = true;
+	const { access_token, token_type } = await useLoginApi().signIn(state.ruleForm);
+	const token = token_type + ' ' + access_token;
 	// 存储 token 到浏览器缓存
-	Session.set('token', Math.random().toString(36).substr(0));
+	Session.set('token', token);
+	Local.set('token', token);
+
+	state.loading.signIn = true;
 	// 模拟数据，对接接口时，记得删除多余代码及对应依赖的引入。用于 `/src/stores/userInfo.ts` 中不同用户登录判断（模拟数据）
-	Cookies.set('userName', state.ruleForm.userName);
+	// Cookies.set('userName', state.ruleForm.userName);
 	if (!themeConfig.value.isRequestRoutes) {
 		// 前端控制路由，2、请注意执行顺序
 		const isNoPower = await initFrontEndControlRoutes();

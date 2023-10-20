@@ -1,5 +1,6 @@
 import { nextTick } from 'vue';
 import '/@/theme/loading.scss';
+import { ElLoading } from 'element-plus';
 
 /**
  * 页面全局 Loading
@@ -42,3 +43,24 @@ export const NextLoading = {
 		});
 	},
 };
+let loadingRequestCount = 0;
+let loadingInstance: any;
+
+export const showLoading = () => {
+	if (loadingRequestCount == 0) {
+		loadingInstance = ElLoading.service({
+			lock: true,
+			text: "请求中",
+			background: 'rgba(0, 0, 0, 0.1)'
+		});
+	}
+	loadingRequestCount++;
+}
+
+export const hideLoading = () => {
+	if (loadingRequestCount <= 0) return;
+	loadingRequestCount--;
+	if (loadingRequestCount === 0) {
+		loadingInstance.close();
+	}
+}
