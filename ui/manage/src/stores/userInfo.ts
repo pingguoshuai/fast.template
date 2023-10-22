@@ -1,108 +1,116 @@
 import { defineStore } from 'pinia';
-import Cookies from 'js-cookie';
-import { Local, Session } from '/@/utils/storage';
-import { useLoginApi } from '../api/login';
-import { UserInfo } from '../api/login/model';
-import { useAppConfigStore } from './appConfig';
+import { Session } from '/@/utils/storage';
 import { appConfigurationService } from '../api/configuration';
+import { appConfigState, applicationConfigurationDto } from '../api/configuration/model';
+import { UserInfoState } from '../api/configuration/models/currentUserDto';
 
-/**
- * 用户信息
- * @methods setUserInfos 设置用户信息
- */
+// /**
+//  * 用户信息
+//  * @methods setUserInfos 设置用户信息
+//  */
+// export const useUserInfo = defineStore('userInfo', {
+// 	state: (): UserInfosState => ({
+// 		userInfos: {
+// 			token: Local.get('token'),
+// 			userName: '',
+// 			photo: 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500',
+// 			time: 0,
+// 			roles: [],
+// 			authBtnList: [],
+// 			email: '',
+// 			sub: ''
+// 		}
+// 	}),
+// 	actions: {
+// 		async setUserInfos() {
+// 			// 存储用户信息到浏览器缓存
+// 			if (Session.get('userInfo')) {
+// 				this.userInfos = Session.get('userInfo');
+// 			} else {
+// 				const userInfos = <UserInfo>await this.getApiUserInfo();
+
+// 				const { name, sub, role, email } = userInfos;
+// 				this.userInfos.userName = name;
+// 				this.userInfos.sub = sub;
+// 				if (typeof (role) == 'string') {
+// 					this.userInfos.roles = [role];
+// 				}
+// 				this.userInfos.email = email;
+// 				Session.set('userInfo', this.userInfos);
+// 			}
+// 		},
+// 		// 模拟接口数据
+// 		// https://gitee.com/lyt-top/vue-next-admin/issues/I5F1HP
+// 		async getApiUserInfo() {
+// 			return new Promise((resolve, reject) => {
+// 				useLoginApi.getUserInfo()
+// 					.then(({ data }) => {
+// 						resolve(data);
+// 					})
+// 					.catch(error => {
+// 						reject(error)
+// 					});
+
+// 				// setTimeout(() => {
+// 				// 	// 模拟数据，请求接口时，记得删除多余代码及对应依赖的引入
+// 				// 	const userName = Cookies.get('userName');
+// 				// 	// 模拟数据
+// 				// 	let defaultRoles: Array<string> = [];
+// 				// 	let defaultAuthBtnList: Array<string> = [];
+// 				// 	// admin 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
+// 				// 	let adminRoles: Array<string> = ['admin'];
+// 				// 	// admin 按钮权限标识
+// 				// 	let adminAuthBtnList: Array<string> = ['btn.add', 'btn.del', 'btn.edit', 'btn.link'];
+// 				// 	// test 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
+// 				// 	let testRoles: Array<string> = ['common'];
+// 				// 	// test 按钮权限标识
+// 				// 	let testAuthBtnList: Array<string> = ['btn.add', 'btn.link'];
+// 				// 	// 不同用户模拟不同的用户权限
+// 				// 	if (userName === 'admin') {
+// 				// 		defaultRoles = adminRoles;
+// 				// 		defaultAuthBtnList = adminAuthBtnList;
+// 				// 	} else {
+// 				// 		defaultRoles = testRoles;
+// 				// 		defaultAuthBtnList = testAuthBtnList;
+// 				// 	}
+// 				// 	// 用户信息模拟数据
+// 				// 	const userInfos = {
+// 				// 		userName: userName,
+// 				// 		photo:
+// 				// 			userName === 'admin'
+// 				// 				? 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500'
+// 				// 				: 'https://img2.baidu.com/it/u=2370931438,70387529&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+// 				// 		time: new Date().getTime(),
+// 				// 		roles: defaultRoles,
+// 				// 		authBtnList: defaultAuthBtnList,
+// 				// 	};
+// 				// 	Session.set('userInfo', userInfos);
+// 				// 	resolve(userInfos);
+// 				// }, 0);
+// 			});
+// 		}
+// 	},
+// });
+
 export const useUserInfo = defineStore('userInfo', {
-	state: (): UserInfosState => ({
-		userInfos: {
-			token: Local.get('token'),
-			userName: '',
-			photo: 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500',
-			time: 0,
-			roles: [],
-			authBtnList: [],
-			email: '',
-			sub: ''
-		}
+	state: (): appConfigState => ({
+		appConfig: Session.get('appConfig') as unknown as applicationConfigurationDto,
+		userInfos: new UserInfoState()
 	}),
 	actions: {
 		async setUserInfos() {
-			// 存储用户信息到浏览器缓存
-			if (Session.get('userInfo')) {
+			if (Session.get('appConfig')) {
+				this.appConfig = Session.get('appConfig');
 				this.userInfos = Session.get('userInfo');
 			} else {
-				await useAppConfigStore().getAppConfig();
-				const userInfos = <UserInfo>await this.getApiUserInfo();
-
-				const { name, sub, role, email } = userInfos;
-				this.userInfos.userName = name;
-				this.userInfos.sub = sub;
-				if (typeof (role) == 'string') {
-					this.userInfos.roles = [role];
-				}
-				this.userInfos.email = email;
-				Session.set('userInfo', this.userInfos);
+				const { data } = await appConfigurationService.getAsync(true);
+				const userInfos = data.currentUser as unknown as UserInfoState;
+				userInfos.photo = 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500';
+				this.appConfig = data;
+				this.userInfos = userInfos;
+				Session.set('appConfig', data);
+				Session.set('userInfo', userInfos);
 			}
-		},
-		// 模拟接口数据
-		// https://gitee.com/lyt-top/vue-next-admin/issues/I5F1HP
-		async getApiUserInfo() {
-			return new Promise((resolve, reject) => {
-				useLoginApi.getUserInfo()
-					.then(({ data }) => {
-						resolve(data);
-					})
-					.catch(error => {
-						reject(error)
-					});
-
-				// setTimeout(() => {
-				// 	// 模拟数据，请求接口时，记得删除多余代码及对应依赖的引入
-				// 	const userName = Cookies.get('userName');
-				// 	// 模拟数据
-				// 	let defaultRoles: Array<string> = [];
-				// 	let defaultAuthBtnList: Array<string> = [];
-				// 	// admin 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
-				// 	let adminRoles: Array<string> = ['admin'];
-				// 	// admin 按钮权限标识
-				// 	let adminAuthBtnList: Array<string> = ['btn.add', 'btn.del', 'btn.edit', 'btn.link'];
-				// 	// test 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
-				// 	let testRoles: Array<string> = ['common'];
-				// 	// test 按钮权限标识
-				// 	let testAuthBtnList: Array<string> = ['btn.add', 'btn.link'];
-				// 	// 不同用户模拟不同的用户权限
-				// 	if (userName === 'admin') {
-				// 		defaultRoles = adminRoles;
-				// 		defaultAuthBtnList = adminAuthBtnList;
-				// 	} else {
-				// 		defaultRoles = testRoles;
-				// 		defaultAuthBtnList = testAuthBtnList;
-				// 	}
-				// 	// 用户信息模拟数据
-				// 	const userInfos = {
-				// 		userName: userName,
-				// 		photo:
-				// 			userName === 'admin'
-				// 				? 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500'
-				// 				: 'https://img2.baidu.com/it/u=2370931438,70387529&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
-				// 		time: new Date().getTime(),
-				// 		roles: defaultRoles,
-				// 		authBtnList: defaultAuthBtnList,
-				// 	};
-				// 	Session.set('userInfo', userInfos);
-				// 	resolve(userInfos);
-				// }, 0);
-			});
-		},
-		async getAppConfig() {
-			return new Promise((resolve, reject) => {
-				appConfigurationService.getAsync(true);
-				useLoginApi.getUserInfo()
-					.then(data => {
-						resolve(data);
-					})
-					.catch(error => {
-						reject(error)
-					});
-			});
 		}
-	},
-});
+	}
+})

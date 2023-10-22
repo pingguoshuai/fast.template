@@ -63,6 +63,10 @@ service.interceptors.response.use(
 			ElMessageBox.alert('你已被登出，请重新登录', '提示', {})
 				.then(() => { })
 				.catch(() => { });
+		} else {
+			setTimeout(() => {
+				hideLoading();
+			}, 200);
 		}
 		ElMessage.error(error.response.data.error.message);
 		return Promise.reject(error);

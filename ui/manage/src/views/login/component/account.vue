@@ -68,7 +68,7 @@ import { initBackEndControlRoutes } from '/@/router/backEnd';
 import { Local, Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
 import { NextLoading } from '/@/utils/loading';
-import { useLoginApi } from '/@/api/login';
+import { loginService } from '/@/api/login';
 import { CreateLogin } from '/@/api/login/model';
 
 // 定义变量内容
@@ -100,7 +100,7 @@ const currentTime = computed(() => {
 });
 // 登录
 const onSignIn = async () => {
-	const { data } = await useLoginApi.signIn(state.ruleForm);
+	const { data } = await loginService.signIn(state.ruleForm);
 	const { access_token, token_type } = data;
 	const token = token_type + ' ' + access_token;
 	// 存储 token 到浏览器缓存
