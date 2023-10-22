@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 import { Local, Session } from '/@/utils/storage';
 import { useLoginApi } from '../api/login';
 import { UserInfo } from '../api/login/model';
+import { useAppConfigStore } from './appConfig';
+import { appConfigurationService } from '../api/configuration';
 
 /**
  * 用户信息
@@ -19,7 +21,7 @@ export const useUserInfo = defineStore('userInfo', {
 			authBtnList: [],
 			email: '',
 			sub: ''
-		},
+		}
 	}),
 	actions: {
 		async setUserInfos() {
@@ -27,8 +29,9 @@ export const useUserInfo = defineStore('userInfo', {
 			if (Session.get('userInfo')) {
 				this.userInfos = Session.get('userInfo');
 			} else {
+				await useAppConfigStore().getAppConfig();
 				const userInfos = <UserInfo>await this.getApiUserInfo();
-				console.log(userInfos)
+
 				const { name, sub, role, email } = userInfos;
 				this.userInfos.userName = name;
 				this.userInfos.sub = sub;
@@ -44,7 +47,7 @@ export const useUserInfo = defineStore('userInfo', {
 		async getApiUserInfo() {
 			return new Promise((resolve, reject) => {
 				useLoginApi.getUserInfo()
-					.then(data => {
+					.then(({ data }) => {
 						resolve(data);
 					})
 					.catch(error => {
@@ -89,5 +92,17 @@ export const useUserInfo = defineStore('userInfo', {
 				// }, 0);
 			});
 		},
+		async getAppConfig() {
+			return new Promise((resolve, reject) => {
+				appConfigurationService.getAsync(true);
+				useLoginApi.getUserInfo()
+					.then(data => {
+						resolve(data);
+					})
+					.catch(error => {
+						reject(error)
+					});
+			});
+		}
 	},
 });

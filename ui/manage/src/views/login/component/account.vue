@@ -100,7 +100,8 @@ const currentTime = computed(() => {
 });
 // 登录
 const onSignIn = async () => {
-	const { access_token, token_type } = await useLoginApi.signIn(state.ruleForm);
+	const { data } = await useLoginApi.signIn(state.ruleForm);
+	const { access_token, token_type } = data;
 	const token = token_type + ' ' + access_token;
 	// 存储 token 到浏览器缓存
 	Session.set('token', token);

@@ -51,7 +51,7 @@ service.interceptors.response.use(
 		setTimeout(() => {
 			hideLoading();
 		}, 200);
-		return response.data;
+		return response;
 	},
 	(error) => {
 		// 对响应数据做点什么
