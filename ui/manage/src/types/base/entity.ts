@@ -20,9 +20,8 @@ export class EntityDto implements IEntityDto {
 }
 
 export class CreationAuditedEntityDto extends EntityDto implements ICreationAuditedEntityDto {
-    constructor() {
-        super();
-    }
+    creationTime?: Date;
+    creatorId?: string;
 }
 
 export class AuditedEntityDto extends CreationAuditedEntityDto implements IAuditedEntityDto {

@@ -40,7 +40,7 @@ export class baseService<TEntityDto, TCreateDto, TQueryInput> {
 
     getListAsync(input: TQueryInput): AxiosPromise<IPageResult<TEntityDto>> {
         return request({
-            url: '/api/IdsAdmin/client',
+            url: this.apiUrl,
             method: 'get',
             params: input
         });

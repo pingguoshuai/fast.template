@@ -18,7 +18,7 @@ export default function () {
 		return formatDate(new Date(cellValue), 'YYYY-mm-dd');
 	};
 	// 列表日期时间格式化
-	const dateFormatYMDHMS = (row: EmptyArrayType, column: number, cellValue: string) => {
+	const dateFormatYMDHMS = (cellValue: string) => {
 		if (!cellValue) return '-';
 		return formatDate(new Date(cellValue), 'YYYY-mm-dd HH:MM:SS');
 	};

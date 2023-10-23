@@ -54,6 +54,7 @@ service.interceptors.response.use(
 		return response;
 	},
 	(error) => {
+		console.log(error);
 		// 对响应数据做点什么
 		const status = error.response.status;
 		if (status === 401) {
