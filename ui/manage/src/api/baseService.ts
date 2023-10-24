@@ -26,7 +26,7 @@ export class baseService<TEntityDto, TCreateDto, TQueryInput> {
 
     deleteAsync(id: string) {
         return request({
-            url: `${this.apiUrl}${id}`,
+            url: `${this.apiUrl}/${id}`,
             method: 'DELETE'
         });
     }

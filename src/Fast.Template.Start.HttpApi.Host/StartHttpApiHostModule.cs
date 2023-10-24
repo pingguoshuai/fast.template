@@ -19,7 +19,6 @@ using Microsoft.Extensions.Hosting;
 using Fast.Template.Start.EntityFrameworkCore;
 using Fast.Template.Start.MultiTenancy;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.IdentityModel.Logging;
 using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
@@ -34,7 +33,7 @@ using Volo.Abp.Modularity;
 using Volo.Abp.Reflection;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
-using Microsoft.AspNetCore.Mvc;
+using Volo.Abp.Timing;
 
 namespace Fast.Template.Start;
 
@@ -53,6 +52,12 @@ public class StartHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        //Ê±Çø
+        //Configure<AbpClockOptions>(options =>
+        //{
+        //    options.Kind = DateTimeKind.Local;
+        //});
+
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
