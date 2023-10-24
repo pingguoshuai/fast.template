@@ -77,3 +77,5 @@ export class authConfigService {
         });
     }
 }
+
+export default new authConfigService();

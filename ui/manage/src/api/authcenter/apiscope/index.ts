@@ -7,3 +7,5 @@ export class apiScopeService extends baseService<apiScopeDto, createApiScopeDto,
         super("/api/IdsAdmin/api-scope");
     }
 }
+
+export default new apiScopeService();

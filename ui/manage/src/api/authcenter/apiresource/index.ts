@@ -7,3 +7,5 @@ export class apiResourceService extends baseService<apiResourceDto, createApiRes
         super("/api/IdsAdmin/api-resource");
     }
 }
+
+export default new apiResourceService();

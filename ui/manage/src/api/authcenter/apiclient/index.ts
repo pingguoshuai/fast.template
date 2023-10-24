@@ -7,3 +7,5 @@ export class apiClientService extends baseService<clientDto, createClientDto, IP
         super("/api/IdsAdmin/client");
     }
 }
+
+export default new apiClientService();

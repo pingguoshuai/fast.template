@@ -51,7 +51,7 @@
 import { ElMessage } from 'element-plus';
 import { reactive, toRefs, defineComponent, ref, onMounted } from 'vue';
 import { identityResourceService } from '/@/api/authcenter/identityresource';
-import { authConfigService } from '/@/api/authcenter/authConfig';
+import authConfigService from '/@/api/authcenter/authConfig';
 import { createIdentityResourceDto } from '/@/api/authcenter/identityresource/model';
 import { msgTool } from '/@/utils/msgTool';
 
@@ -60,7 +60,6 @@ const props = defineProps({
 });
 const ruleFormRef = ref();
 const _identityResourceService = new identityResourceService();
-const _authConfigService = new authConfigService();
 const state = reactive({
 	isAdd: true,
 	isShowDialog: false,
@@ -109,7 +108,7 @@ const onSubmit = async () => {
 };
 // 页面加载时
 onMounted(async () => {
-	const { data } = await _authConfigService.getStandardClaims();
+	const { data } = await authConfigService.getStandardClaims();
 	state.options = data;
 });
 defineExpose({

@@ -7,3 +7,5 @@ export class identityResourceService extends baseService<identityResourceDto, cr
         super("/api/IdsAdmin/identity-resource");
     }
 }
+
+export default new identityResourceService();
