@@ -23,7 +23,6 @@
 				<el-switch v-model="state.ruleForm.emphasize" inline-prompt> </el-switch>
 			</el-form-item>
 			<el-form-item label="用户声明">
-				<!-- <el-input v-model="state.ruleForm.name" clearable></el-input> -->
 				<el-select
 					class="elselect"
 					v-model="state.ruleForm.userClaims"
@@ -55,7 +54,7 @@ import { authConfigService } from '/@/api/authcenter/authConfig';
 import { createApiScopeDto } from '/@/api/authcenter/apiscope/model';
 import { msgTool } from '/@/utils/msgTool';
 
-const emit = defineEmits(['reload']);
+// const emit = defineEmits(['reload']);
 
 const _service = new apiScopeService();
 const _configService = new authConfigService();
@@ -102,7 +101,7 @@ const onSubmit = async () => {
 	} else {
 		await _service.updateAsync(state.entityId, state.ruleForm);
 	}
-	emit('reload');
+	// emit('reload');
 	ElMessage.success('操作成功');
 	closeDialog();
 };
@@ -110,6 +109,11 @@ const onSubmit = async () => {
 onMounted(async () => {
 	const { data } = await _configService.getStandardClaims();
 	state.options = data;
+});
+
+defineExpose({
+	openAdd,
+	openEdit,
 });
 </script>
 <style scoped lang="scss">

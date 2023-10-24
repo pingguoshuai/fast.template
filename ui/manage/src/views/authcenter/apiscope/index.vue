@@ -59,7 +59,7 @@
 			>
 			</el-pagination>
 		</el-card>
-		<AddScope ref="addScopeRef" @reload="getData" />
+		<AddScope ref="addRef" @reload="getData" />
 		<ManageProperty
 			ref="propertyRef"
 			loadUrl="/api/IdsAdmin/api-scope/{0}/properties"
@@ -74,14 +74,13 @@ import { toRefs, reactive, onMounted, ref, defineComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 import AddScope from './component/add.vue';
 import ManageProperty from '/@/components/authcenter/property.vue';
-import { formatDate } from '/@/utils/formatTime';
 import commonFunction from '/@/utils/commonFunction';
 import { apiScopeService } from '/@/api/authcenter/apiscope';
 import { apiScopeDto } from '/@/api/authcenter/apiscope/model';
 import { PageResult } from '/@/types/base/pageresult';
 import { PageRequestQuery } from '/@/types/base/querybase';
 
-const addScopeRef = ref();
+const addRef = ref();
 const propertyRef = ref();
 
 const { dateFormatYMDHMS } = commonFunction();
@@ -102,15 +101,16 @@ const getData = async () => {
 	});
 };
 const onOpenAdd = () => {
-	addScopeRef.value.openAdd();
+	addRef.value.openAdd();
 };
 // 打开修改
 const onOpenEdit = (row: apiScopeDto) => {
-	console.log(addScopeRef.value);
-	addScopeRef.value.openEdit(row.id);
+	console.log(addRef.value);
+	addRef.value.openEdit(row.id);
 };
 
 const openProperty = async (row: apiScopeDto) => {
+	console.log(propertyRef.value);
 	propertyRef.value.openDrawer(row.id);
 };
 

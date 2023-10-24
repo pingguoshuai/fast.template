@@ -55,6 +55,12 @@ service.interceptors.response.use(
 	},
 	(error) => {
 		console.log(error);
+		if (error.code == 'ECONNABORTED') {
+			setTimeout(() => {
+				hideLoading();
+			}, 200);
+			return Promise.reject(error);
+		}
 		// 对响应数据做点什么
 		const status = error.response.status;
 		if (status === 401) {
