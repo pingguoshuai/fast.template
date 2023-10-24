@@ -52,6 +52,8 @@ public class Program
         try
         {
             Log.Information("Starting Fast.Template.Start.HttpApi.Host.");
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
             var builder = WebApplication.CreateBuilder(args);
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
