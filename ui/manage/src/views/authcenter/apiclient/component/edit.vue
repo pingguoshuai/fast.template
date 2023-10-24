@@ -1,7 +1,7 @@
 <template>
 	<el-drawer title="编辑" v-model="state.isShow" size="50%" :before-close="closeDialog">
 		<el-form :model="state.ruleForm" ref="formRef" label-width="180px" :inline="false" size="default">
-			<el-tabs v-model="activeName" type="card" tab-position="top" @tab-click="">
+			<el-tabs v-model="activeName" type="card" tab-position="top">
 				<el-tab-pane label="基本" name="first">
 					<el-form-item label="名称" prop="clientId" :rules="[{ required: true, message: '请填写名称' }]">
 						<el-input v-model="state.ruleForm.clientId" clearable></el-input>
@@ -21,7 +21,16 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="授权类型">
-						<el-select class="elselect" v-model="state.ruleForm.allowedGrantTypes" multiple filterable allow-create default-first-option :reserve-keyword="false" prop="userClaims">
+						<el-select
+							class="elselect"
+							v-model="state.ruleForm.allowedGrantTypes"
+							multiple
+							filterable
+							allow-create
+							default-first-option
+							:reserve-keyword="false"
+							prop="userClaims"
+						>
 							<el-option v-for="item in state.grantTypes" :key="item" :label="item" :value="item" />
 						</el-select>
 					</el-form-item>
@@ -208,9 +217,10 @@
 import { Plus, Delete } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
-import { apiClient } from '/@/api/authcenter/apiclient';
-import { getAccessTokenTypes, getGrantTypes, getScopes, getSigningAlgorithms, getTokenExpirations, getTokenUsages } from '/@/api/config';
-import { updateClientDto } from '/@/types/api/authcenter/client';
+import apiService from '/@/api/authcenter/apiclient';
+import authConfigService from '/@/api/authcenter/authConfig';
+import { updateClientDto } from '/@/api/authcenter/apiclient/model';
+import { ITextValue } from '/@/types/base/textvalue';
 const props = defineProps({
 	afterSubmit: Function,
 });
@@ -232,15 +242,14 @@ const state = reactive({
 			value: 'oidc',
 		},
 	],
-	grantTypes: [],
-	scopeList: [],
-	signingAlgorithms: [],
-	accessTokenTypes: [],
-	tokenUsages: [],
-	tokenExpirations: [],
+	grantTypes: [] as string[],
+	scopeList: [] as string[],
+	signingAlgorithms: [] as string[],
+	accessTokenTypes: [] as ITextValue[],
+	tokenUsages: [] as ITextValue[],
+	tokenExpirations: [] as ITextValue[],
 });
 
-const apiService = new apiClient();
 const open = async (id: string) => {
 	state.isShow = true;
 	state.entityId = id;
@@ -290,33 +299,34 @@ const onSubmit = async () => {
 		return item != '';
 	});
 	await apiService.updateAsync(state.entityId, state.ruleForm);
+	props.afterSubmit?.();
 	ElMessage.success('操作成功');
 	console.log(state.ruleForm);
 };
 
 onMounted(async () => {
 	{
-		const { data } = await getGrantTypes();
+		const { data } = await authConfigService.getGrantTypes();
 		state.grantTypes = data;
 	}
 	{
-		const { data } = await getScopes();
+		const { data } = await authConfigService.getScopes();
 		state.scopeList = data;
 	}
 	{
-		const { data } = await getSigningAlgorithms();
+		const { data } = await authConfigService.getSigningAlgorithms();
 		state.signingAlgorithms = data;
 	}
 	{
-		const { data } = await getAccessTokenTypes();
+		const { data } = await authConfigService.getAccessTokenTypes();
 		state.accessTokenTypes = data;
 	}
 	{
-		const { data } = await getTokenUsages();
+		const { data } = await authConfigService.getTokenUsages();
 		state.tokenUsages = data;
 	}
 	{
-		const { data } = await getTokenExpirations();
+		const { data } = await authConfigService.getTokenExpirations();
 		state.tokenExpirations = data;
 	}
 });

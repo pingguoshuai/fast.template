@@ -9,7 +9,7 @@
 				</el-form-item>
 				<el-form-item label="哈希类型" label-width="80px" prop="hashType" v-show="state.ruleForm.type == 'SharedSecret'">
 					<el-select v-model="state.ruleForm.hashType" placeholder="" filterable>
-						<el-option v-for="item in state.hashTypes" :key="item.value" :label="item.key" :value="item.value"> </el-option>
+						<el-option v-for="item in state.hashTypes" :key="item.value" :label="item.text" :value="item.value"> </el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="密钥值" label-width="80px" prop="value" :rules="[{ required: true, message: '请填写密钥值' }]">
@@ -53,7 +53,7 @@ import authConfigService from '/@/api/authcenter/authConfig';
 import { secretDto } from '/@/api/authcenter/model';
 import request from '/@/utils/request';
 import { formatDate } from '/@/utils';
-import { IKeyValue } from '/@/types/base/keyvalue';
+import { ITextValue } from '/@/types/base/textvalue';
 
 const props = defineProps<{
 	loadUrl: string;
@@ -69,7 +69,7 @@ const state = reactive({
 	isShow: false,
 	ruleForm: new secretDto(),
 	secretTypes: [] as string[],
-	hashTypes: [] as IKeyValue[],
+	hashTypes: [] as ITextValue[],
 });
 
 const openDrawer = (id: string) => {
@@ -128,3 +128,4 @@ defineExpose({
 	openDrawer,
 });
 </script>
+../../types/base/textvalue

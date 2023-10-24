@@ -1,6 +1,6 @@
 import { AxiosPromise } from "axios";
 import request from "/@/utils/request";
-import { IKeyValue } from "/@/types/base/keyvalue";
+import { ITextValue } from "../../../types/base/textvalue";
 
 export class authConfigService {
     getStandardClaims(): AxiosPromise<string[]> {
@@ -38,7 +38,7 @@ export class authConfigService {
         });
     }
 
-    getHashTypes(): AxiosPromise<IKeyValue[]> {
+    getHashTypes(): AxiosPromise<ITextValue[]> {
         return request({
             url: '/api/IdsAdmin/config/hash-types',
             method: 'get'
@@ -48,7 +48,7 @@ export class authConfigService {
      * 访问令牌类型
      * @returns 
      */
-    getAccessTokenTypes(): AxiosPromise<IKeyValue[]> {
+    getAccessTokenTypes(): AxiosPromise<ITextValue[]> {
         return request({
             url: '/api/IdsAdmin/config/access-token-types',
             method: 'get'
@@ -59,7 +59,7 @@ export class authConfigService {
      * 刷新令牌使用情况
      * @returns 
      */
-    getTokenUsages(): AxiosPromise<IKeyValue[]> {
+    getTokenUsages(): AxiosPromise<ITextValue[]> {
         return request({
             url: '/api/IdsAdmin/config/token-usages',
             method: 'get'
@@ -70,7 +70,7 @@ export class authConfigService {
      * 刷新令牌过期
      * @returns 
      */
-    getTokenExpirations(): AxiosPromise<IKeyValue[]> {
+    getTokenExpirations(): AxiosPromise<ITextValue[]> {
         return request({
             url: '/api/IdsAdmin/config/token-expirations',
             method: 'get'

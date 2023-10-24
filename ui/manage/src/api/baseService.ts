@@ -2,7 +2,7 @@
 import { AxiosPromise } from "axios";
 import request from "/@/utils/request";
 import { IPageResult } from "../types/base/pageresult";
-import { IKeyValue } from "../types/base/keyvalue";
+import { ITextValue } from "../types/base/textvalue";
 
 export class baseService<TEntityDto, TCreateDto, TQueryInput> {
     apiUrl: string;
@@ -47,7 +47,7 @@ export class baseService<TEntityDto, TCreateDto, TQueryInput> {
         });
     }
 
-    getItemAsync(): AxiosPromise<IKeyValue[]> {
+    getItemAsync(): AxiosPromise<ITextValue[]> {
         return request({
             url: `${this.apiUrl}/items`,
             method: 'GET'

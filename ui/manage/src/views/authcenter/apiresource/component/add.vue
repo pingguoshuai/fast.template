@@ -47,7 +47,7 @@
 			<el-form-item label="作用域">
 				<!-- <el-input v-model="ruleForm.name" clearable></el-input> -->
 				<el-select class="elselect" v-model="ruleForm.scopes" multiple default-first-option :reserve-keyword="false" prop="scopes">
-					<el-option v-for="item in scopeList" :key="item.key" :label="item.value" :value="item.value" />
+					<el-option v-for="item in scopeList" :key="item.text" :label="item.value" :value="item.value" />
 				</el-select>
 			</el-form-item>
 		</el-form>
@@ -68,7 +68,7 @@ import apiScopeService from '/@/api/authcenter/apiscope';
 import configService from '/@/api/authcenter/authConfig';
 import { createApiResourceDto } from '/@/api/authcenter/apiresource/model';
 import { msgTool } from '/@/utils/msgTool';
-import { IKeyValue } from '/@/types/base/keyvalue';
+import { ITextValue } from '/@/types/base/textvalue';
 
 export default defineComponent({
 	name: 'AddApiResource',
@@ -84,7 +84,7 @@ export default defineComponent({
 			ruleForm: new createApiResourceDto(),
 			options: [] as string[],
 			signingAlgorithms: [] as string[],
-			scopeList: [] as IKeyValue[],
+			scopeList: [] as ITextValue[],
 		});
 		// 打开弹窗
 		const openAdd = () => {
@@ -159,3 +159,4 @@ export default defineComponent({
 	}
 }
 </style>
+../../../../types/base/textvalue

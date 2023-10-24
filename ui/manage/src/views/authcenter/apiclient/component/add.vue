@@ -1,9 +1,7 @@
 <template>
 	<el-dialog title="新增" v-model="isShowDialog" width="600px" :before-close="handleClose">
 		<el-form :model="ruleForm" size="default" ref="ruleFormRef" label-width="140px" class="system-scope-container">
-			<el-form-item label="名称" prop="clientId" :rules="[
-				{ required: true, message: '请填写名称' }
-			]">
+			<el-form-item label="名称" prop="clientId" :rules="[{ required: true, message: '请填写名称' }]">
 				<el-input v-model="ruleForm.clientId" clearable></el-input>
 			</el-form-item>
 			<el-form-item label="显示名称" prop="clientName">
@@ -13,24 +11,29 @@
 				<el-input v-model="ruleForm.description" clearable type="textarea"></el-input>
 			</el-form-item>
 			<el-form-item label="启用" prop="enabled">
-				<el-switch v-model="ruleForm.enabled">
-				</el-switch>
+				<el-switch v-model="ruleForm.enabled"> </el-switch>
 			</el-form-item>
 			<el-form-item label="协议类型">
-				<el-select class="elselect" v-model="ruleForm.protocolType" default-first-option
-					:reserve-keyword="false" prop="protocolType">
+				<el-select class="elselect" v-model="ruleForm.protocolType" default-first-option :reserve-keyword="false" prop="protocolType">
 					<el-option v-for="item in protocolTypes" :key="item.value" :label="item.text" :value="item.value" />
 				</el-select>
 			</el-form-item>
 			<el-form-item label="授权类型">
-				<el-select class="elselect" v-model="ruleForm.allowedGrantTypes" multiple filterable allow-create
-					default-first-option :reserve-keyword="false" prop="userClaims">
+				<el-select
+					class="elselect"
+					v-model="ruleForm.allowedGrantTypes"
+					multiple
+					filterable
+					allow-create
+					default-first-option
+					:reserve-keyword="false"
+					prop="userClaims"
+				>
 					<el-option v-for="item in grantTypes" :key="item" :label="item" :value="item" />
 				</el-select>
 			</el-form-item>
 			<el-form-item label="作用域">
-				<el-select class="elselect" v-model="ruleForm.allowedScopes" multiple default-first-option
-					:reserve-keyword="false" prop="scopes">
+				<el-select class="elselect" v-model="ruleForm.allowedScopes" multiple default-first-option :reserve-keyword="false" prop="scopes">
 					<el-option v-for="item in scopeList" :key="item" :label="item" :value="item" />
 				</el-select>
 			</el-form-item>
@@ -47,34 +50,32 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus';
 import { reactive, toRefs, defineComponent, ref, onMounted } from 'vue';
-import { apiClient } from '/@/api/authcenter/apiclient';
-import { getGrantTypes, getScopes, getStandardClaims } from '/@/api/config';
-import { createClientDto } from '/@/types/api/authcenter/client';
+import apiService from '/@/api/authcenter/apiclient';
+import authConfigService from '/@/api/authcenter/authConfig';
+import { createClientDto } from '/@/api/authcenter/apiclient/model';
 import { msgTool } from '/@/utils/msgTool';
 
 export default defineComponent({
 	name: 'AddApiResource',
 	props: {
-		afterSubmit: Function
+		afterSubmit: Function,
 	},
 	setup(props) {
 		const ruleFormRef = ref();
-		const apiService = new apiClient();
 		const state = reactive({
 			isAdd: true,
 			isShowDialog: false,
 			entityId: '',
 			ruleForm: new createClientDto(),
-			options: [],
 			signingAlgorithms: [],
-			scopeList: [],
-			grantTypes: [],
+			scopeList: [] as string[],
+			grantTypes: [] as string[],
 			protocolTypes: [
 				{
-					text: "OpenID Connect",
-					value: "oidc"
-				}
-			]
+					text: 'OpenID Connect',
+					value: 'oidc',
+				},
+			],
 		});
 		// 打开弹窗
 		const openAdd = () => {
@@ -94,7 +95,7 @@ export default defineComponent({
 		};
 		// 关闭弹窗
 		const closeDialog = async () => {
-			ruleFormRef.value?.resetFields()
+			ruleFormRef.value?.resetFields();
 			state.isShowDialog = false;
 			state.ruleForm = new createClientDto();
 		};
@@ -104,24 +105,24 @@ export default defineComponent({
 		};
 		// 新增
 		const onSubmit = async () => {
-			await ruleFormRef.value?.validate()
+			await ruleFormRef.value?.validate();
 			if (state.isAdd) {
 				await apiService.createAsync(state.ruleForm);
 			} else {
 				await apiService.updateAsync(state.entityId, state.ruleForm);
 			}
-			props.afterSubmit();
-			ElMessage.success('操作成功')
+			props.afterSubmit?.();
+			ElMessage.success('操作成功');
 			closeDialog();
 		};
 		// 页面加载时
 		onMounted(async () => {
 			{
-				const { data } = await getGrantTypes();
+				const { data } = await authConfigService.getGrantTypes();
 				state.grantTypes = data;
 			}
 			{
-				const { data } = await getScopes();
+				const { data } = await authConfigService.getScopes();
 				state.scopeList = data;
 			}
 		});

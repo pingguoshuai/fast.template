@@ -28,11 +28,11 @@ namespace Fast.Template.Common.Utils
     {
         public SelectItem(string key, T value)
         {
-            Key = key;
+            Text = key;
             Value = value;
         }
 
-        public string Key { get; set; }
+        public string Text { get; set; }
         public T Value { get; set; }
     }
 }
