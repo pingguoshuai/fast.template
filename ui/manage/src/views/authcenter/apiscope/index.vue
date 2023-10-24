@@ -29,7 +29,7 @@
 				<el-table-column prop="description" label="描述" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="creationTime" label="创建时间" show-overflow-tooltip>
 					<template #default="{ row }">
-						{{ dateFormatYMDHMS(row.creationTime) }}
+						{{ formatDate(row.creationTime, 'yyyy-mm-dd HH:MM:ss') }}
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" width="200">
@@ -71,6 +71,7 @@
 
 <script lang="ts" setup>
 import { toRefs, reactive, onMounted, ref, defineComponent } from 'vue';
+import { formatDate } from '/@/utils';
 import { ElMessage } from 'element-plus';
 import AddScope from './component/add.vue';
 import ManageProperty from '/@/components/authcenter/property.vue';
