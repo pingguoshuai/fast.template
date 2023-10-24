@@ -58,6 +58,9 @@ service.interceptors.response.use(
 		if (error.code == 'ECONNABORTED') {
 			setTimeout(() => {
 				hideLoading();
+				Session.clear(); // 清除浏览器全部临时缓存
+				Local.clear(); // 清除浏览器全部临时缓存
+				window.location.href = '/'; // 去登录页
 			}, 200);
 			return Promise.reject(error);
 		}

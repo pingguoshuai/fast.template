@@ -53,10 +53,10 @@ public class StartHttpApiHostModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         //Ê±Çø
-        //Configure<AbpClockOptions>(options =>
-        //{
-        //    options.Kind = DateTimeKind.Local;
-        //});
+        Configure<AbpClockOptions>(options =>
+        {
+            options.Kind = DateTimeKind.Utc;
+        });
 
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
