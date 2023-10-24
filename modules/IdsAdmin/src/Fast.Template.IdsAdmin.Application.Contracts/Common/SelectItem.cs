@@ -1,14 +1,14 @@
 ﻿namespace Fast.Template.IdsAdmin.Common
 {
-    public class SelectItem<T>
+    public class SelectItem22<T>
     {
-        public SelectItem(string text, T value)
+        public SelectItem22(string key, T value)
         {
-            Text = text;
+            Key = key;
             Value = value;
         }
 
-        public string Text { get; set; }
+        public string Key { get; set; }
         public T Value { get; set; }
     }
 }

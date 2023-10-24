@@ -18,13 +18,29 @@
 			</el-form-item>
 			<el-form-item label="允许的签名算法">
 				<!-- <el-input v-model="ruleForm.name" clearable></el-input> -->
-				<el-select class="elselect" v-model="ruleForm.allowedAccessTokenSigningAlgorithms" multiple default-first-option :reserve-keyword="false" prop="allowedAccessTokenSigningAlgorithms">
+				<el-select
+					class="elselect"
+					v-model="ruleForm.allowedAccessTokenSigningAlgorithms"
+					multiple
+					default-first-option
+					:reserve-keyword="false"
+					prop="allowedAccessTokenSigningAlgorithms"
+				>
 					<el-option v-for="item in signingAlgorithms" :key="item" :label="item" :value="item" />
 				</el-select>
 			</el-form-item>
 			<el-form-item label="用户声明">
 				<!-- <el-input v-model="ruleForm.name" clearable></el-input> -->
-				<el-select class="elselect" v-model="ruleForm.userClaims" multiple filterable allow-create default-first-option :reserve-keyword="false" prop="userClaims">
+				<el-select
+					class="elselect"
+					v-model="ruleForm.userClaims"
+					multiple
+					filterable
+					allow-create
+					default-first-option
+					:reserve-keyword="false"
+					prop="userClaims"
+				>
 					<el-option v-for="item in options" :key="item" :label="item" :value="item" />
 				</el-select>
 			</el-form-item>
@@ -47,11 +63,12 @@
 <script lang="ts">
 import { ElMessage } from 'element-plus';
 import { reactive, toRefs, defineComponent, ref, onMounted } from 'vue';
-import { apiResource } from '/@/api/authcenter/apiresource';
-import { apiScopeGetItemAsnyc } from '/@/api/authcenter/apiscope';
-import { getSecretTypes, getSigningAlgorithms, getStandardClaims } from '/@/api/config';
-import { createApiResourceDto } from '/@/types/api/authcenter/apiresource';
+import apiResourceService from '/@/api/authcenter/apiresource';
+import apiScopeService from '/@/api/authcenter/apiscope';
+import configService from '/@/api/authcenter/authConfig';
+import { createApiResourceDto } from '/@/api/authcenter/apiresource/model';
 import { msgTool } from '/@/utils/msgTool';
+import { IKeyValue } from '/@/types/base/keyvalue';
 
 export default defineComponent({
 	name: 'AddApiResource',
@@ -60,15 +77,14 @@ export default defineComponent({
 	},
 	setup(props) {
 		const ruleFormRef = ref();
-		const apiResourceService = new apiResource();
 		const state = reactive({
 			isAdd: true,
 			isShowDialog: false,
 			entityId: '',
 			ruleForm: new createApiResourceDto(),
-			options: [],
-			signingAlgorithms: [],
-			scopeList: [],
+			options: [] as string[],
+			signingAlgorithms: [] as string[],
+			scopeList: [] as IKeyValue[],
 		});
 		// 打开弹窗
 		const openAdd = () => {
@@ -104,22 +120,22 @@ export default defineComponent({
 			} else {
 				await apiResourceService.updateAsync(state.entityId, state.ruleForm);
 			}
-			props.afterSubmit();
+			props.afterSubmit?.();
 			ElMessage.success('操作成功');
 			closeDialog();
 		};
 		// 页面加载时
 		onMounted(async () => {
 			{
-				const { data } = await getStandardClaims();
+				const { data } = await configService.getStandardClaims();
 				state.options = data;
 			}
 			{
-				const { data } = await getSigningAlgorithms();
+				const { data } = await configService.getSigningAlgorithms();
 				state.signingAlgorithms = data;
 			}
 			{
-				const { data } = await apiScopeGetItemAsnyc();
+				const { data } = await apiScopeService.getItemAsync();
 				state.scopeList = data;
 			}
 		});

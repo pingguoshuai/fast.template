@@ -171,6 +171,10 @@ body,
 		z-index: 9999998;
 		animation: error-img 0.3s;
 	}
+	// .layout-main-scroll {
+	// 	@extend .el-scrollbar;
+	// 	padding: 15px;
+	// }
 	.layout-mian-height-50 {
 		height: calc(100vh - 50px);
 	}

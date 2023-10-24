@@ -2,6 +2,7 @@
 import { AxiosPromise } from "axios";
 import request from "/@/utils/request";
 import { IPageResult } from "../types/base/pageresult";
+import { IKeyValue } from "../types/base/keyvalue";
 
 export class baseService<TEntityDto, TCreateDto, TQueryInput> {
     apiUrl: string;
@@ -43,6 +44,13 @@ export class baseService<TEntityDto, TCreateDto, TQueryInput> {
             url: this.apiUrl,
             method: 'get',
             params: input
+        });
+    }
+
+    getItemAsync(): AxiosPromise<IKeyValue[]> {
+        return request({
+            url: `${this.apiUrl}/items`,
+            method: 'GET'
         });
     }
 }
