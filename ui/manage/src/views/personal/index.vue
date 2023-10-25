@@ -1,210 +1,125 @@
 <template>
-	<div class="personal layout-pd">
+	<div class="personal">
 		<el-row>
-			<!-- 个人信息 -->
-			<el-col :xs="24" :sm="16">
-				<el-card shadow="hover" header="个人信息">
-					<div class="personal-user">
-						<div class="personal-user-left">
-							<el-upload class="h100 personal-user-left-upload" action="https://jsonplaceholder.typicode.com/posts/" multiple :limit="1">
-								<img src="https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500" />
-							</el-upload>
-						</div>
-						<div class="personal-user-right">
-							<el-row>
-								<el-col :span="24" class="personal-title mb18">{{ currentTime }}，admin，生活变的再糟糕，也不妨碍我变得更好！ </el-col>
-								<el-col :span="24">
-									<el-row>
-										<el-col :xs="24" :sm="8" class="personal-item mb6">
-											<div class="personal-item-label">昵称：</div>
-											<div class="personal-item-value">小柒</div>
-										</el-col>
-										<el-col :xs="24" :sm="16" class="personal-item mb6">
-											<div class="personal-item-label">身份：</div>
-											<div class="personal-item-value">超级管理</div>
-										</el-col>
-									</el-row>
-								</el-col>
-								<el-col :span="24">
-									<el-row>
-										<el-col :xs="24" :sm="8" class="personal-item mb6">
-											<div class="personal-item-label">登录IP：</div>
-											<div class="personal-item-value">192.168.1.1</div>
-										</el-col>
-										<el-col :xs="24" :sm="16" class="personal-item mb6">
-											<div class="personal-item-label">登录时间：</div>
-											<div class="personal-item-value">2021-02-05 18:47:26</div>
-										</el-col>
-									</el-row>
-								</el-col>
-							</el-row>
-						</div>
-					</div>
-				</el-card>
-			</el-col>
-
-			<!-- 消息通知 -->
-			<el-col :xs="24" :sm="8" class="pl15 personal-info">
-				<el-card shadow="hover">
-					<template #header>
-						<span>消息通知</span>
-						<span class="personal-info-more">更多</span>
-					</template>
-					<div class="personal-info-box">
-						<ul class="personal-info-ul">
-							<li v-for="(v, k) in state.newsInfoList" :key="k" class="personal-info-li">
-								<a :href="v.link" target="_block" class="personal-info-li-title">{{ v.title }}</a>
-							</li>
-						</ul>
-					</div>
-				</el-card>
-			</el-col>
-
-			<!-- 营销推荐 -->
-			<el-col :span="24">
-				<el-card shadow="hover" class="mt15" header="营销推荐">
-					<el-row :gutter="15" class="personal-recommend-row">
-						<el-col :sm="6" v-for="(v, k) in state.recommendList" :key="k" class="personal-recommend-col">
-							<div class="personal-recommend" :style="{ 'background-color': v.bg }">
-								<SvgIcon :name="v.icon" :size="70" :style="{ color: v.iconColor }" />
-								<div class="personal-recommend-auto">
-									<div>{{ v.title }}</div>
-									<div class="personal-recommend-msg">{{ v.msg }}</div>
-								</div>
-							</div>
-						</el-col>
-					</el-row>
-				</el-card>
-			</el-col>
-
 			<!-- 更新信息 -->
 			<el-col :span="24">
 				<el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
 					<div class="personal-edit-title">基本信息</div>
-					<el-form :model="state.personalForm" size="default" label-width="40px" class="mt35 mb35">
+					<el-form :model="state.formData" ref="formRef" size="default" label-width="40px" class="mt35 mb35">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="昵称">
-									<el-input v-model="state.personalForm.name" placeholder="请输入昵称" clearable></el-input>
+								<el-form-item label="用户名" prop="userName" label-width="70px">
+									<el-input v-model="state.formData.userName" placeholder="请输入用户名" clearable disabled></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="邮箱">
-									<el-input v-model="state.personalForm.email" placeholder="请输入邮箱" clearable></el-input>
+								<el-form-item label="邮箱" prop="email" label-width="70px" :rules="[{ required: true, type: 'email', message: '请输入邮箱' }]">
+									<el-input v-model="state.formData.email" placeholder="请输入邮箱" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="签名">
-									<el-input v-model="state.personalForm.autograph" placeholder="请输入签名" clearable></el-input>
+								<el-form-item label="姓" label-width="70px">
+									<el-input v-model="state.formData.surname" placeholder="请输入姓" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="职业">
-									<el-select v-model="state.personalForm.occupation" placeholder="请选择职业" clearable class="w100">
-										<el-option label="计算机 / 互联网 / 通信" value="1"></el-option>
-										<el-option label="生产 / 工艺 / 制造" value="2"></el-option>
-										<el-option label="医疗 / 护理 / 制药" value="3"></el-option>
-									</el-select>
+								<el-form-item label="名" label-width="70px">
+									<el-input v-model="state.formData.name" placeholder="请输入名" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="手机">
-									<el-input v-model="state.personalForm.phone" placeholder="请输入手机" clearable></el-input>
-								</el-form-item>
-							</el-col>
-							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="性别">
-									<el-select v-model="state.personalForm.sex" placeholder="请选择性别" clearable class="w100">
-										<el-option label="男" value="1"></el-option>
-										<el-option label="女" value="2"></el-option>
-									</el-select>
+								<el-form-item label="手机" prop="phoneNumber" label-width="70px" :rules="[{ required: true, type: 'phone', message: '请输入手机' }]">
+									<el-input v-model="state.formData.phoneNumber" placeholder="请输入手机" clearable></el-input>
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 								<el-form-item>
-									<el-button type="primary">
+									<el-button type="primary" @click="onSubmit">
 										<el-icon>
 											<ele-Position />
 										</el-icon>
 										更新个人信息
 									</el-button>
+									<el-button type="warning" @click="showPwd = true"> 修改密码 </el-button>
 								</el-form-item>
 							</el-col>
 						</el-row>
 					</el-form>
-					<div class="personal-edit-title mb15">账号安全</div>
-					<div class="personal-edit-safe-box">
-						<div class="personal-edit-safe-item">
-							<div class="personal-edit-safe-item-left">
-								<div class="personal-edit-safe-item-left-label">账户密码</div>
-								<div class="personal-edit-safe-item-left-value">当前密码强度：强</div>
-							</div>
-							<div class="personal-edit-safe-item-right">
-								<el-button text type="primary">立即修改</el-button>
-							</div>
-						</div>
-					</div>
-					<div class="personal-edit-safe-box">
-						<div class="personal-edit-safe-item">
-							<div class="personal-edit-safe-item-left">
-								<div class="personal-edit-safe-item-left-label">密保手机</div>
-								<div class="personal-edit-safe-item-left-value">已绑定手机：132****4108</div>
-							</div>
-							<div class="personal-edit-safe-item-right">
-								<el-button text type="primary">立即修改</el-button>
-							</div>
-						</div>
-					</div>
-					<div class="personal-edit-safe-box">
-						<div class="personal-edit-safe-item">
-							<div class="personal-edit-safe-item-left">
-								<div class="personal-edit-safe-item-left-label">密保问题</div>
-								<div class="personal-edit-safe-item-left-value">已设置密保问题，账号安全大幅度提升</div>
-							</div>
-							<div class="personal-edit-safe-item-right">
-								<el-button text type="primary">立即设置</el-button>
-							</div>
-						</div>
-					</div>
-					<div class="personal-edit-safe-box">
-						<div class="personal-edit-safe-item">
-							<div class="personal-edit-safe-item-left">
-								<div class="personal-edit-safe-item-left-label">绑定QQ</div>
-								<div class="personal-edit-safe-item-left-value">已绑定QQ：110****566</div>
-							</div>
-							<div class="personal-edit-safe-item-right">
-								<el-button text type="primary">立即设置</el-button>
-							</div>
-						</div>
-					</div>
 				</el-card>
 			</el-col>
 		</el-row>
+		<el-dialog v-model="showPwd" title="修改密码" width="30%" :before-close="closeDialog">
+			<el-form ref="changeFormRef" :model="state.pwdForm">
+				<el-form-item label="旧密码" :label-width="80" prop="currentPassword" :rules="[{ required: true, message: '请输入旧密码' }]">
+					<el-input v-model="state.pwdForm.currentPassword" type="password" autocomplete="off" />
+				</el-form-item>
+				<el-form-item label="新密码" :label-width="80" prop="newPassword" :rules="[{ required: true, message: '请输入新密码' }]">
+					<el-input v-model="state.pwdForm.newPassword" type="password" autocomplete="off" />
+				</el-form-item>
+				<el-form-item label="确认密码" :label-width="80" prop="confirmPassword" :rules="[{ validator: validateConfirmPassword }]">
+					<el-input v-model="state.pwdForm.confirmPassword" type="password" autocomplete="off" />
+				</el-form-item>
+			</el-form>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="closeDialog">取消</el-button>
+					<el-button type="primary" @click="onChangePwd"> 确定 </el-button>
+				</span>
+			</template>
+		</el-dialog>
 	</div>
 </template>
 
-<script setup lang="ts" name="personal">
-import { reactive, computed } from 'vue';
-import { formatAxis } from '/@/utils/formatTime';
-import { newsInfoList, recommendList } from './mock';
+<script setup lang="ts">
+import { ElMessage } from 'element-plus';
+import { reactive, onMounted, ref } from 'vue';
+import accountService from '/@/api/account';
+import { changePasswordInput, ProfileDto } from '/@/api/account/model';
 
-// 定义变量内容
-const state = reactive<PersonalState>({
-	newsInfoList,
-	recommendList,
-	personalForm: {
-		name: '',
-		email: '',
-		autograph: '',
-		occupation: '',
-		phone: '',
-		sex: '',
-	},
+const formRef = ref();
+const changeFormRef = ref();
+const showPwd = ref(false);
+
+const state = reactive({
+	formData: new ProfileDto(),
+	pwdForm: new changePasswordInput(),
 });
 
-// 当前时间提示语
-const currentTime = computed(() => {
-	return formatAxis(new Date());
+const getData = async () => {
+	const { data } = await accountService.getAsync();
+	state.formData = data;
+};
+
+const onSubmit = async () => {
+	await formRef.value?.validate();
+	await accountService.updateAsync(state.formData);
+	ElMessage.success('操作成功');
+};
+const validateConfirmPassword = (rule: any, value: any, callback: any) => {
+	if (value === '') {
+		callback(new Error('请确认密码'));
+	} else if (value !== state.pwdForm.newPassword) {
+		callback(new Error('两次密码输入不一致!'));
+	} else {
+		callback();
+	}
+};
+
+const closeDialog = async () => {
+	changeFormRef.value?.resetFields();
+	showPwd.value = false;
+	state.pwdForm = new changePasswordInput();
+};
+
+const onChangePwd = async () => {
+	await changeFormRef.value?.validate();
+	await accountService.changePasswordAsync(state.pwdForm);
+	ElMessage.success('操作成功');
+	closeDialog();
+};
+
+onMounted(() => {
+	getData();
 });
 </script>
 
