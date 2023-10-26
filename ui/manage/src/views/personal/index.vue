@@ -28,7 +28,7 @@
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-								<el-form-item label="手机" prop="phoneNumber" label-width="70px" :rules="[{ required: true, type: 'phone', message: '请输入手机' }]">
+								<el-form-item label="手机" prop="phoneNumber" label-width="70px" :rules="[{ required: true, message: '请输入手机' }]">
 									<el-input v-model="state.formData.phoneNumber" placeholder="请输入手机" clearable></el-input>
 								</el-form-item>
 							</el-col>

@@ -1,40 +1,51 @@
 <template>
-	<div class="system-role-container layout-padding">
-		<div class="system-role-padding layout-padding-auto layout-padding-view">
+	<div class="system-role-container">
+		<el-card shadow="hover">
 			<div class="system-user-search mb15">
-				<el-input v-model="state.tableData.param.search" size="default" placeholder="请输入角色名称" style="max-width: 180px"> </el-input>
+				<!-- <el-input size="default" placeholder="请输入角色名称" style="max-width: 180px"> </el-input>
 				<el-button size="default" type="primary" class="ml10">
 					<el-icon>
 						<ele-Search />
 					</el-icon>
 					查询
-				</el-button>
-				<el-button size="default" type="success" class="ml10" @click="onOpenAddRole('add')">
+				</el-button> -->
+				<el-button size="default" type="success" class="ml10" @click="onOpenAdd">
 					<el-icon>
 						<ele-FolderAdd />
 					</el-icon>
 					新增角色
 				</el-button>
 			</div>
-			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%">
+			<el-table :data="state.resultDto.items" style="width: 100%">
 				<el-table-column type="index" label="序号" width="60" />
-				<el-table-column prop="roleName" label="角色名称" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="roleSign" label="角色标识" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="sort" label="排序" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="status" label="角色状态" show-overflow-tooltip>
+				<el-table-column prop="name" label="角色名称" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="status" label="公开" show-overflow-tooltip>
 					<template #default="scope">
-						<el-tag type="success" v-if="scope.row.status">启用</el-tag>
-						<el-tag type="info" v-else>禁用</el-tag>
+						<el-icon color="green" :size="20" v-if="scope.row.isPublic"><ele-CircleCheckFilled /></el-icon>
+						<el-icon color="red" :size="20" v-else><ele-CircleCloseFilled /></el-icon>
 					</template>
 				</el-table-column>
-				<el-table-column prop="describe" label="角色描述" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column prop="status" label="默认" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary" @click="onOpenEditRole('edit', scope.row)"
-							>修改</el-button
-						>
-						<el-button :disabled="scope.row.roleName === '超级管理员'" size="small" text type="primary" @click="onRowDel(scope.row)">删除</el-button>
+						<el-icon color="green" :size="20" v-if="scope.row.isDefault"><ele-CircleCheckFilled /></el-icon>
+						<el-icon color="red" :size="20" v-else><ele-CircleCloseFilled /></el-icon>
+					</template>
+				</el-table-column>
+				<el-table-column label="操作" width="200">
+					<template #default="scope">
+						<el-tooltip class="box-item" effect="dark" content="权限" placement="top-start">
+							<el-button type="primary" :icon="Lock" circle size="small" @click="onOpenRole(scope.row)" />
+						</el-tooltip>
+						<!-- <el-button :disabled="scope.row.isStatic" size="small" text type="primary" @click="onOpenEdit(scope.row)">修改</el-button> -->
+						<el-tooltip class="box-item" effect="dark" content="编辑" placement="top-start">
+							<el-button :disabled="scope.row.isStatic" type="primary" :icon="Edit" circle size="small" @click="onOpenEdit(scope.row)" />
+						</el-tooltip>
+						<el-popconfirm title="确定删除吗?" @confirm="onDel(scope.row.id)">
+							<template #reference>
+								<!-- <el-button :disabled="scope.row.isStatic" size="small" text type="primary">删除</el-button> -->
+								<el-button :disabled="scope.row.isStatic" type="danger" :icon="Delete" circle size="small" />
+							</template>
+						</el-popconfirm>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -43,104 +54,74 @@
 				@current-change="onHandleCurrentChange"
 				class="mt15"
 				:pager-count="5"
-				:page-sizes="[10, 20, 30]"
-				v-model:current-page="state.tableData.param.pageNum"
+				:page-sizes="[2, 10, 20, 30]"
+				v-model:current-page="state.queryParam.CurrentPage"
 				background
-				v-model:page-size="state.tableData.param.pageSize"
+				v-model:page-size="state.queryParam.maxResultCount"
 				layout="total, sizes, prev, pager, next, jumper"
-				:total="state.tableData.total"
+				:total="state.resultDto.totalCount"
 			>
 			</el-pagination>
-		</div>
-		<RoleDialog ref="roleDialogRef" @refresh="getTableData()" />
+		</el-card>
+		<Add ref="addRef" :after-submit="getData" />
+		<Permission ref="permissionRef" />
 	</div>
 </template>
 
-<script setup lang="ts" name="systemRole">
-import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+<script setup lang="ts">
+import { Edit, Delete, User, Lock, Tickets } from '@element-plus/icons-vue';
+import { onMounted, reactive, ref } from 'vue';
+import Add from '/@/views/system/role/component/add.vue';
+import Permission from '/@/views/system/role/component/permission.vue';
+import roleService from '/@/api/system/role';
+import { roleDto } from '/@/api/system/role/model';
+import { PageResult } from '/@/types/base/pageresult';
+import { PageRequestQuery } from '/@/types/base/querybase';
+import { ElMessage } from 'element-plus';
 
-// 引入组件
-const RoleDialog = defineAsyncComponent(() => import('/@/views/system/role/dialog.vue'));
+const addRef = ref();
+const permissionRef = ref();
 
-// 定义变量内容
-const roleDialogRef = ref();
-const state = reactive<SysRoleState>({
-	tableData: {
-		data: [],
-		total: 0,
-		loading: false,
-		param: {
-			search: '',
-			pageNum: 1,
-			pageSize: 10,
-		},
-	},
+const state = reactive({
+	queryParam: new PageRequestQuery(),
+	resultDto: new PageResult<roleDto>(),
 });
-// 初始化表格数据
-const getTableData = () => {
-	state.tableData.loading = true;
-	const data = [];
-	for (let i = 0; i < 20; i++) {
-		data.push({
-			roleName: i === 0 ? '超级管理员' : '普通用户',
-			roleSign: i === 0 ? 'admin' : 'common',
-			describe: `测试角色${i + 1}`,
-			sort: i,
-			status: true,
-			createTime: new Date().toLocaleString(),
-		});
-	}
-	state.tableData.data = data;
-	state.tableData.total = state.tableData.data.length;
-	setTimeout(() => {
-		state.tableData.loading = false;
-	}, 500);
+
+const onOpenAdd = () => {
+	addRef.value.openAdd();
 };
-// 打开新增角色弹窗
-const onOpenAddRole = (type: string) => {
-	roleDialogRef.value.openDialog(type);
+
+const onOpenEdit = (row: roleDto) => {
+	addRef.value.openEdit(row.id);
 };
-// 打开修改角色弹窗
-const onOpenEditRole = (type: string, row: Object) => {
-	roleDialogRef.value.openDialog(type, row);
+
+const onOpenRole = (row: roleDto) => {
+	permissionRef.value.open('R', row.name, row.name);
 };
-// 删除角色
-const onRowDel = (row: RowRoleType) => {
-	ElMessageBox.confirm(`此操作将永久删除角色名称：“${row.roleName}”，是否继续?`, '提示', {
-		confirmButtonText: '确认',
-		cancelButtonText: '取消',
-		type: 'warning',
-	})
-		.then(() => {
-			getTableData();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
+
+const onDel = async (row: roleDto) => {
+	await roleService.deleteAsync(row.id);
+	ElMessage.success('删除成功');
+	getData();
 };
+
 // 分页改变
 const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-	getTableData();
+	state.queryParam.MaxResultCount = val;
+	getData();
 };
 // 分页改变
 const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-	getTableData();
+	state.queryParam.CurrentPage = val;
+	getData();
 };
-// 页面加载时
+
+const getData = async () => {
+	const { data } = await roleService.getListAsync(state.queryParam);
+	state.resultDto = data;
+};
+
 onMounted(() => {
-	getTableData();
+	getData();
 });
 </script>
-
-<style scoped lang="scss">
-.system-role-container {
-	.system-role-padding {
-		padding: 15px;
-		.el-table {
-			flex: 1;
-		}
-	}
-}
-</style>

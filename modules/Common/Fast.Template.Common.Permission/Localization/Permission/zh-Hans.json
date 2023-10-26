@@ -9,7 +9,7 @@
     "Permission:DeleteAsync": "删除",
     "Permission:GetListAsync": "列表",
     "Permission:GetItemsAsync": "获取选项",
-    "Permission:Create": "编辑",
+    "Permission:Create": "创建",
     "Permission:Update": "编辑",
     "Permission:Get": "详情",
     "Permission:Delete": "删除",

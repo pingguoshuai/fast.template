@@ -54,7 +54,7 @@ service.interceptors.response.use(
 		return response;
 	},
 	(error) => {
-		console.log(error);
+		ElMessage.error(error.response.data.error.message);
 		if (error.code == 'ECONNABORTED') {
 			setTimeout(() => {
 				hideLoading();
@@ -78,7 +78,6 @@ service.interceptors.response.use(
 				hideLoading();
 			}, 200);
 		}
-		ElMessage.error(error.response.data.error.message);
 		return Promise.reject(error);
 		// // 对响应错误做点什么
 		// if (error.message.indexOf('timeout') != -1) {
