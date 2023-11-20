@@ -10,12 +10,7 @@ import ElementPlus from 'element-plus';
 import '/@/theme/index.scss';
 import VueGridLayout from 'vue-grid-layout';
 
-const app = createApp(App);
 
-directive(app);
-other.elSvg(app);
-
-app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).mount('#app');
 
 String.prototype.format = function () {
     var args = arguments;
@@ -26,3 +21,18 @@ String.prototype.format = function () {
             ;
     });
 };
+
+function bootstrap() {
+    const app = createApp(App);
+    directive(app);
+    other.elSvg(app);
+
+    app.use(pinia);
+    app.use(router);
+    app.use(ElementPlus);
+    app.use(i18n);
+    app.use(VueGridLayout);
+    app.mount('#app');
+}
+
+bootstrap();

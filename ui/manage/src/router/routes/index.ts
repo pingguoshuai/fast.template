@@ -1,5 +1,6 @@
 ﻿import { RouteRecordRaw } from "vue-router";
 import {demoRoutes} from './demo';
+import {LAYOUT} from "/@/router/constant";
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 const modules = import.meta.globEager('./modules/**/*.ts');
@@ -12,6 +13,33 @@ const LoginRoute : RouteRecordRaw= {
     meta: {
         title: '登录',
     },
+};
+
+const HomeRoute : RouteRecordRaw= {
+    path: '/',
+    name: '/',
+    component: LAYOUT,
+    redirect: '/home',
+    meta: {
+        isKeepAlive: true,
+    },
+    children:[
+        {
+            path: '/home',
+            name: 'home',
+            component: () => import('/@/views/home/index.vue'),
+            meta: {
+                title: 'message.router.home',
+                isLink: '',
+                isHide: false,
+                isKeepAlive: true,
+                isAffix: true,
+                isIframe: false,
+                roles: ['admin', 'common'],
+                icon: 'iconfont icon-shouye',
+            },
+        }
+    ]
 };
 
 const notFoundAndNoPower:Array<RouteRecordRaw> = [
@@ -37,6 +65,7 @@ const notFoundAndNoPower:Array<RouteRecordRaw> = [
 
 export const basicRoutes : RouteRecordRaw[] = [
     LoginRoute,
+    HomeRoute,
     ...notFoundAndNoPower,
     ...demoRoutes
 ];

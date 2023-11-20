@@ -7,7 +7,7 @@ import { useKeepALiveNames } from '/@/stores/keepAliveNames';
 import { useRoutesList } from '/@/stores/routesList';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { Session } from '/@/utils/storage';
-import { staticRoutes, notFoundAndNoPower } from '/@/router/route';
+import { basicRoutes } from '/@/router/routes';
 import { initFrontEndControlRoutes } from '/@/router/frontEnd';
 import { initBackEndControlRoutes } from '/@/router/backEnd';
 
@@ -38,7 +38,7 @@ export const router = createRouter({
 	 * 2、backEnd.ts(后端控制路由)、frontEnd.ts(前端控制路由) 中也需要加 notFoundAndNoPower 404、401 界面。
 	 *    防止 404、401 不在 layout 布局中，不设置的话，404、401 界面将全屏显示
 	 */
-	routes: [...notFoundAndNoPower, ...staticRoutes],
+	routes: basicRoutes,
 });
 
 /**
@@ -92,6 +92,7 @@ export function formatTwoStageRoutes(arr: any) {
 
 // 路由加载前
 router.beforeEach(async (to, from, next) => {
+	console.log("00000")
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
 	const token = Session.get('token');
@@ -119,7 +120,9 @@ router.beforeEach(async (to, from, next) => {
 				} else {
 					// https://gitee.com/lyt-top/vue-next-admin/issues/I5F1HP
 					await initFrontEndControlRoutes();
+					console.log(to.path)
 					next({ path: to.path, query: to.query });
+					console.log(111111111)
 				}
 			} else {
 				next();
@@ -130,6 +133,7 @@ router.beforeEach(async (to, from, next) => {
 
 // 路由加载后
 router.afterEach(() => {
+	console.log(22222)
 	NProgress.done();
 });
 
