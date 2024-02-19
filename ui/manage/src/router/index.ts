@@ -2,6 +2,54 @@ import {createRouter, createWebHashHistory} from "vue-router";
 import {basicRoutes} from "/@/router/routes";
 import NProgress from "nprogress";
 import {Session} from "/@/utils/storage";
+import {useRoutesList} from "/@/stores/routesList";
+import pinia from "/@/stores";
+import {storeToRefs} from "pinia";
+import {useKeepALiveNames} from "/@/stores/keepAliveNames";
+
+export function formatFlatteningRoutes(arr: any) {
+    if (arr.length <= 0) return false;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].children) {
+            arr = arr.slice(0, i + 1).concat(arr[i].children, arr.slice(i + 1));
+        }
+    }
+    return arr;
+}
+
+/**
+ * 一维数组处理成多级嵌套数组（只保留二级：也就是二级以上全部处理成只有二级，keep-alive 支持二级缓存）
+ * @description isKeepAlive 处理 `name` 值，进行缓存。顶级关闭，全部不缓存
+ * @link 参考：https://v3.cn.vuejs.org/api/built-in-components.html#keep-alive
+ * @param arr 处理后的一维路由菜单数组
+ * @returns 返回将一维数组重新处理成 `定义动态路由（dynamicRoutes）` 的格式
+ */
+export function formatTwoStageRoutes(arr: any) {
+    if (arr.length <= 0) return false;
+    const newArr: any = [];
+    const cacheList: Array<string> = [];
+    arr.forEach((v: any) => {
+        if (v.path === '/') {
+            newArr.push({ component: v.component, name: v.name, path: v.path, redirect: v.redirect, meta: v.meta, children: [] });
+        } else {
+            // 判断是否是动态路由（xx/:id/:name），用于 tagsView 等中使用
+            // 修复：https://gitee.com/lyt-top/vue-next-admin/issues/I3YX6G
+            if (v.path.indexOf('/:') > -1) {
+                v.meta['isDynamic'] = true;
+                v.meta['isDynamicPath'] = v.path;
+            }
+            newArr[0].children.push({ ...v });
+            // 存 name 值，keep-alive 中 include 使用，实现路由的缓存
+            // 路径：/@/layout/routerView/parent.vue
+            if (newArr[0].meta.isKeepAlive && v.meta.isKeepAlive) {
+                cacheList.push(v.name);
+                const stores = useKeepALiveNames(pinia);
+                stores.setCacheKeepAlive(cacheList);
+            }
+        }
+    });
+    return newArr;
+}
 
 export const router = createRouter({
     history: createWebHashHistory(),
@@ -38,6 +86,16 @@ router.beforeEach(async (to,from)=>{
     if (token && to.path === '/login'){
         NProgress.done();
         return {name:'home'};
+    }
+
+    const storesRoutesList = useRoutesList(pinia);
+    const { routesList } = storeToRefs(storesRoutesList);
+    
+    if(routesList.value.length === 0){
+        // return {path:to.path,query:to.query};
+        return true;
+    }else {
+        return true;
     }
 });
 
