@@ -6,6 +6,9 @@ import {useRoutesList} from "/@/stores/routesList";
 import pinia from "/@/stores";
 import {storeToRefs} from "pinia";
 import {useKeepALiveNames} from "/@/stores/keepAliveNames";
+import {generateRoutes} from "/@/router/permission";
+import {initFrontEndControlRoutes} from "/@/router/frontEnd";
+import {initBackEndControlRoutes} from "/@/router/backEnd";
 
 export function formatFlatteningRoutes(arr: any) {
     if (arr.length <= 0) return false;
@@ -66,7 +69,7 @@ export const router = createRouter({
 
 router.beforeEach(async (to,from)=>{
     NProgress.configure({showSpinner:false});
-    
+
     if (to.meta.title) NProgress.start();
 
     const token = Session.get('token');
@@ -74,14 +77,14 @@ router.beforeEach(async (to,from)=>{
         NProgress.done();
         return true;
     }
-    
+
     //未登录
     if(!token) {
         Session.clear();
         NProgress.done();
         return {name:'login',params:{redirect:to.path,params:JSON.stringify(to.query ? to.query : to.params)}};
     }
-    
+
     //已登录，进入登录页，跳转到首页
     if (token && to.path === '/login'){
         NProgress.done();
@@ -90,9 +93,12 @@ router.beforeEach(async (to,from)=>{
 
     const storesRoutesList = useRoutesList(pinia);
     const { routesList } = storeToRefs(storesRoutesList);
-    
+
     if(routesList.value.length === 0){
-        // return {path:to.path,query:to.query};
+
+        await generateRoutes();
+
+        // await initFrontEndControlRoutes();
         return true;
     }else {
         return true;
@@ -100,7 +106,7 @@ router.beforeEach(async (to,from)=>{
 });
 
 router.afterEach(()=>{
-    
+    NProgress.done();
 });
 
 export default router;

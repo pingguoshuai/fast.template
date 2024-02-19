@@ -2,7 +2,7 @@
 interface MenuRoute{
     path: string;
     name?: string;
-    component: any;
+    component?: any;
     redirect?: string;
     parentName?: string;
     requiredPolicy?: string;

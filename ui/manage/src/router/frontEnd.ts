@@ -107,6 +107,7 @@ export function setCacheTagsViewRoutes() {
 	const storesTagsView = useTagsViewRoutes(pinia);
 	const { userInfos } = storeToRefs(stores);
 	let rolesRoutes = setFilterHasRolesMenu(dynamicRoutes, userInfos.value.roles);
+	console.log(rolesRoutes);
 	// 添加到 pinia setTagsViewRoutes 中
 	storesTagsView.setTagsViewRoutes(formatTwoStageRoutes(formatFlatteningRoutes(rolesRoutes))[0].children);
 }

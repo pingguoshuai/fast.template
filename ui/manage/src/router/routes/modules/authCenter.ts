@@ -5,7 +5,7 @@ const authCenterRouter: MenuRoute[] = [
         path: '/authCenter',
         name: 'authCenter',
         redirect: '/authCenter/apiScope',
-        component: LAYOUT,
+        // component: LAYOUT,
         meta:{
             title: 'message.router.authCenter',
             isLink: '',

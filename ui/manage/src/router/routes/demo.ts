@@ -4,10 +4,17 @@ export const demoRoutes: Array<RouteRecordRaw> = [
     {
         path: '/demo',
         name: 'demo',
-        component: () => import('/@/layout/index.vue'),
+        // component: () => import('/@/layout/index.vue'),
         redirect: '/system/user',
         meta: {
             isKeepAlive: true,
+            title: 'demo',
+            isLink: '',
+            isHide: false,
+            isAffix: false,
+            isIframe: false,
+            roles: ['admin'],
+            icon: 'iconfont icon-xitongshezhi',
         },
         children: [
             {
